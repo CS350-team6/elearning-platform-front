@@ -3,11 +3,11 @@
 interface MyProps{
   response : string;
 }
-export default function Data({response}:MyProps) {
+export default function Second({response}:MyProps) {
   console.log("??")
   return(
-    <div>
+    <h1 style={{color:"red"}}>
       {response}
-    </div>
+    </h1>
   )
 }
