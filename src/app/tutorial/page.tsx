@@ -3,6 +3,7 @@ export default function Tutorial() {
         <div>
             This is tutorial for cs350 team6
             Follow the following steps
+            
         </div>
     )
 }
