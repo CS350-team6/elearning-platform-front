@@ -14,7 +14,7 @@ export default function Data({response}:MyProps) {
   const dispatch = useAppDispatch();
 
   const apply = () => {
-    dispatch(incrementByAmount(response+2))
+    dispatch(incrementByAmount(response+3))
   }
 
   return(
