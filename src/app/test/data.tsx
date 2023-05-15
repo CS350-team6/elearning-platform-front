@@ -17,12 +17,12 @@ export default function Data({response}:MyProps) {
     dispatch(incrementByAmount(response+4))
   }
 
+  // html 컴포넌트
   return(
     <div>
-      <button onClick={apply}>apply</button>
+      <button onClick={(e) => console.log(e.target)}>apply</button>
       <div>{response}</div>
       <div>{count}</div>
-      
     </div>
   )
 }
