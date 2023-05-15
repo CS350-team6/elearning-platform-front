@@ -8,6 +8,7 @@ interface MyProps{
 
 
 
+
 export default function Data({response}:MyProps) {
   console.log("??")
   const count = useAppSelector((state) => state.counterReducer.value);
