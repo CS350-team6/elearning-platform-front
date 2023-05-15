@@ -1,13 +1,10 @@
-
 import axios from 'axios';
 import Data from './data';
 import Second from './second';
 
 
 async function getData(): Promise<number> {
-
-  
-  return axios.post('http://localhost:8000/users', {
+return axios.post('http://localhost:8000/users', {
     name: 'Dexter',
     email : "dohye0807"
   },{
@@ -31,8 +28,7 @@ async function getData(): Promise<number> {
 
   
    
-export default async function Page(){
-
+export default async function Test(){
   const data_: number = await getData();
   console.log(data_);
   console.log("!");

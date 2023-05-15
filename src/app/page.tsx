@@ -12,6 +12,7 @@ export default function Home() {
 
   return (
     <main style={{ maxWidth: 1200, marginInline: "auto", padding: 20 }}>
+      <div>!!!!!!!!!!!!test</div>
       <div style={{ marginBottom: "4rem", textAlign: "center" }}>
         <h4 style={{ marginBottom: 16 }}>{count}</h4>
         <button onClick={() => dispatch(increment())}>increment</button>
