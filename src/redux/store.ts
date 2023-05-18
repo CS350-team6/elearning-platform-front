@@ -1,8 +1,13 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
+
 import counterReducer from "./features/counterSlice";
+import registerEmailReducer from "./features/registerEmailSlice";
+import registerNameReducer from "./features/registerNameSlice";
+
 import { userApi } from "./services/userApi";
+
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
 
 const persistConfig = {
@@ -13,6 +18,9 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
     counterReducer,
+    registerEmailReducer,
+    registerNameReducer,
+
     [userApi.reducerPath]: userApi.reducer,
 })
 
