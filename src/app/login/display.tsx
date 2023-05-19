@@ -1,11 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-
+import { useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-
-import { setRegisterID, resetID } from "@/redux/features/registerIDSlice";
-import { setRegisterPW, resetPW } from "@/redux/features/registerPWSlice";
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -24,14 +21,12 @@ import { ConstructionOutlined } from '@mui/icons-material';
 
 const defaultTheme = createTheme();
 interface MyProps{
-  getData: (name: string, email: string) => Promise<number>;
+  getData: (name: string, email: string) => Promise<string>;
 }
 
 export default function Main({getData}:MyProps) {
-    const dispatch = useAppDispatch();
-    const requestID = useAppSelector((state) => state.registerIDReducer.value);
-    const requestPW = useAppSelector((state) => state.registerPWReducer.value);
   
+    const router = useRouter();
     const [id, setID] = useState('');
     const [pw, setPW] = useState('');
     const [data, setData] = useState<number>(1);
@@ -40,15 +35,15 @@ export default function Main({getData}:MyProps) {
       event.preventDefault();
       const data = new FormData(event.currentTarget);
       
-      dispatch(setRegisterID(data.get('id') as string));
-      dispatch(setRegisterPW(data.get('pw') as string));
-
       console.log("id : ", id)
       console.log("pw : ", pw)
       
       fetchData();
+
       setID('');
       setPW('');
+
+      router.push('/main')
 
     };
 
@@ -67,7 +62,13 @@ export default function Main({getData}:MyProps) {
       <TextField name="PW" label="PW" id="PW"
         value={pw}  onChange={e => setPW(e.target.value)} />
 
-      <Button type="submit"> Sign Up </Button>
+      <Button type="submit"> Login </Button>
+      <Link href="/pwReset" variant="body2">
+            Forgot password?
+      </Link>
+      <Link href="/register" variant="body2">
+                  {"Don't have an account? Sign Up"}
+      </Link>
     </Box>
   )
 };

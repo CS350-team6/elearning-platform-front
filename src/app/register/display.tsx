@@ -1,11 +1,8 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-
-import { setRegisterID, resetID } from "@/redux/features/registerIDSlice";
-import { setRegisterPW, resetPW } from "@/redux/features/registerPWSlice";
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -24,32 +21,69 @@ import { ConstructionOutlined } from '@mui/icons-material';
 
 const defaultTheme = createTheme();
 interface MyProps{
-  getData: (name: string, email: string) => Promise<number>;
+  getData: (name: string, email: string) => Promise<string>;
 }
 
 export default function Main({getData}:MyProps) {
-    const dispatch = useAppDispatch();
-    const requestID = useAppSelector((state) => state.registerIDReducer.value);
-    const requestPW = useAppSelector((state) => state.registerPWReducer.value);
-  
+    
+    const router = useRouter();
+
+    const idFieldRef = useRef<HTMLInputElement>(null);
+    const pwFieldRef = useRef<HTMLInputElement>(null);
+    const lastNameFieldRef = useRef<HTMLInputElement>(null);
+    const firstNameFieldRef = useRef<HTMLInputElement>(null);
+    
     const [id, setID] = useState('');
     const [pw, setPW] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [firstName, setFirstName] = useState('');
     const [data, setData] = useState<number>(1);
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       const data = new FormData(event.currentTarget);
       
-      dispatch(setRegisterID(data.get('id') as string));
-      dispatch(setRegisterPW(data.get('pw') as string));
+      if (
+        idFieldRef.current &&
+        pwFieldRef.current &&
+        firstNameFieldRef.current &&
+        lastNameFieldRef.current
+      ) {
+        if (idFieldRef.current.value.trim() === '') {
+          idFieldRef.current.focus();
+          return;
+        }
+        if (pwFieldRef.current.value.trim() === '') {
+          pwFieldRef.current.focus();
+          return;
+        }
+        if (firstNameFieldRef.current.value.trim() === '') {
+          firstNameFieldRef.current.focus();
+          return;
+        }
+        if (lastNameFieldRef.current.value.trim() === '') {
+          lastNameFieldRef.current.focus();
+          return;
+        }
+      }
 
-      console.log("id : ", id)
-      console.log("pw : ", pw)
       
-      fetchData();
-      setID('');
-      setPW('');
+      const fetchedData = await fetchData();
+     
+      if(!fetchedData){
 
+        return;
+      } else {
+        
+        setID('');
+        setPW('');
+        setFirstName('');
+        setLastName('');
+
+        router.push('/login')
+      }
+      
+      
     };
 
     async function fetchData() {
@@ -57,15 +91,24 @@ export default function Main({getData}:MyProps) {
       console.log("send.tsx : ", data_);
       setData(data+1);
       console.log("hello");
+      
+      return true;
     }
 
   return (
     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-      <TextField id="ID" label="ID" name="ID" 
-      value={id}  onChange={e => setID(e.target.value)} />
+      <TextField name="firstName" id="firstName" label="First Name" 
+      value={firstName} inputRef={firstNameFieldRef}  onChange={e => setFirstName(e.target.value)}/>
+
+      <TextField name="lastName" id="lastName" label="last Name"
+      value={lastName} inputRef={lastNameFieldRef} onChange={e => setLastName(e.target.value)}/>
+      
+      
+      <TextField id="ID" label="ID" name="ID"
+      value={id} inputRef={idFieldRef}  onChange={e => setID(e.target.value)} />
     
-      <TextField name="PW" label="PW" id="PW"
-        value={pw}  onChange={e => setPW(e.target.value)} />
+      <TextField name="PW" label="PW" id="PW" 
+      value={pw} inputRef={pwFieldRef}  onChange={e => setPW(e.target.value)} />
 
       <Button type="submit"> Sign Up </Button>
     </Box>
