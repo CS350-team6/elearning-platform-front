@@ -3,10 +3,11 @@ import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 
 import counterReducer from "./features/counterSlice";
-import registerEmailReducer from "./features/registerEmailSlice";
-import registerNameReducer from "./features/registerNameSlice";
+import registerIDReducer from "./features/registerIDSlice";
+import registerPWReducer from "./features/registerPWSlice";
 
 import { userApi } from "./services/userApi";
+import { registerApi } from "./services/registerApi";
 
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
 
@@ -18,10 +19,11 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
     counterReducer,
-    registerEmailReducer,
-    registerNameReducer,
+    registerIDReducer,
+    registerPWReducer,
 
     [userApi.reducerPath]: userApi.reducer,
+    [registerApi.reducerPath]: registerApi.reducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -31,7 +33,7 @@ export const store = configureStore({
     reducer: persistedReducer,
     devTools: process.env.NODE_ENV !== "production",
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware({}).concat([userApi.middleware]),
+        getDefaultMiddleware({}).concat([userApi.middleware, registerApi.middleware]),
 });
 
 export const persistor = persistStore(store);
