@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 
@@ -21,7 +21,7 @@ import { ConstructionOutlined } from '@mui/icons-material';
 
 const defaultTheme = createTheme();
 interface MyProps{
-  getData: (name: string, email: string) => Promise<string>;
+  getData: (name: string, email: string) => Promise<boolean>;
 }
 
 export default function Main({getData}:MyProps) {
@@ -29,29 +29,31 @@ export default function Main({getData}:MyProps) {
     const router = useRouter();
     const [id, setID] = useState('');
     const [pw, setPW] = useState('');
-    const [data, setData] = useState<number>(1);
+    const [errorMessage, setErrorMessage] = useState('');
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      const data = new FormData(event.currentTarget);
       
       console.log("id : ", id)
       console.log("pw : ", pw)
       
-      fetchData();
-
-      setID('');
-      setPW('');
-
-      router.push('/main')
-
+      const fetchedData = await fetchData();
+      if (fetchedData){
+        setID('');
+        setPW('');
+        router.push('/main')
+      } else {
+        setErrorMessage('Invalid ID or password');
+        return;
+      }
+      
+      
+      
     };
 
     async function fetchData() {
       const data_ = await getData(id, pw);
-      console.log("send.tsx : ", data_);
-      setData(data+1);
-      console.log("hello");
+      return data_;
     }
 
   return (
@@ -69,7 +71,9 @@ export default function Main({getData}:MyProps) {
       <Link href="/register" variant="body2">
                   {"Don't have an account? Sign Up"}
       </Link>
+      {errorMessage && <Typography color="error">{errorMessage}</Typography>}
     </Box>
+    
   )
 };
 

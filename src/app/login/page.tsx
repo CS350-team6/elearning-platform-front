@@ -3,7 +3,7 @@ import Main from './display';
 
 export default function Login() {
 
-  async function getData(id: string, pw: string): Promise<string> {
+  async function getData(id: string, pw: string): Promise<boolean> {
     "use server"
   
     try {
@@ -16,13 +16,13 @@ export default function Login() {
           'Content-Type': 'application/json',
         },
       });
-      return "login success"
+      return true;
       
     } catch (error) {
       console.error(error); // 에러 발생 시 에러를 출력
-  
+      return false;
     }
-    return "login fail";
+    
   }
   
   return (

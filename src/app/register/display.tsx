@@ -39,10 +39,11 @@ export default function Main({getData}:MyProps) {
     const [firstName, setFirstName] = useState('');
     const [data, setData] = useState<number>(1);
 
+    const [errorMessage, setErrorMessage] = useState('');
+
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      const data = new FormData(event.currentTarget);
-      
+  
       if (
         idFieldRef.current &&
         pwFieldRef.current &&
@@ -70,17 +71,17 @@ export default function Main({getData}:MyProps) {
       
       const fetchedData = await fetchData();
      
-      if(!fetchedData){
-
-        return;
-      } else {
-        
+      if(fetchedData){
         setID('');
         setPW('');
         setFirstName('');
         setLastName('');
 
         router.push('/login')
+        
+      } else {
+        setErrorMessage('Invalid ID or password');
+        return;
       }
       
       
@@ -88,11 +89,8 @@ export default function Main({getData}:MyProps) {
 
     async function fetchData() {
       const data_ = await getData(id, pw);
-      console.log("send.tsx : ", data_);
-      setData(data+1);
-      console.log("hello");
       
-      return true;
+      return data_;
     }
 
   return (
@@ -111,6 +109,8 @@ export default function Main({getData}:MyProps) {
       value={pw} inputRef={pwFieldRef}  onChange={e => setPW(e.target.value)} />
 
       <Button type="submit"> Sign Up </Button>
+
+      {errorMessage && <Typography color="error">{errorMessage}</Typography>}
     </Box>
   )
 };

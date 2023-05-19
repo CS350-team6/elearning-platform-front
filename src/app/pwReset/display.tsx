@@ -6,8 +6,6 @@ import Link from '@mui/material/Link';
 
 import React, { useEffect, useState } from 'react';
 
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-
 
 interface MyProps{
   getData: (name: string) => Promise<string>;
@@ -17,9 +15,6 @@ export default function Main({getData}: MyProps) {
 
     const handleEmailSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-       
-        console.log("id : ", id)
 
         fetchData();
   
@@ -45,6 +40,7 @@ export default function Main({getData}: MyProps) {
             <Link href="/login" variant="body2">
                 go to login
             </Link>
+
 
         </Box>
         
