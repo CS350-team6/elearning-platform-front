@@ -2,7 +2,6 @@
 
 import React, { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -15,11 +14,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
 const defaultTheme = createTheme();
-interface MyProps{
-  getData: (name: string, email: string) => Promise<boolean>;
-}
 
-export default function Main({getData}:MyProps) {
+export default function Main() {
     
     const router = useRouter();
 
@@ -69,34 +65,17 @@ export default function Main({getData}:MyProps) {
       }
 
       
-      const fetchedData = await fetchData();
-     
-      if(fetchedData){
-        setID('');
-        setPW('');
-        setFirstName('');
-        setLastName('');
+    setID('');
+    setPW('');
+    setFirstName('');
+    setLastName('');
 
-        router.push('/login')
-        
-      } else {
-        setID('');
-        setPW('');
-        setFirstName('');
-        setLastName('');
-        setErrorMessage('Invalid ID or password');
-
-        return;
-      }
+    router.push('/login')
       
       
     };
 
-    async function fetchData() {
-      const data_ = await getData(id, pw);
-      
-      return data_;
-    }
+ 
 
   return (
 
