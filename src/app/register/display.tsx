@@ -1,5 +1,7 @@
 "use client";
 
+import {getData} from "./link";
+
 import React, { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Button from '@mui/material/Button';
@@ -12,13 +14,9 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-interface MyProps{
-  getData: (name: string, email: string) => Promise<boolean>;
-}
-
 const defaultTheme = createTheme();
 
-export default function Main({getData}:MyProps) {
+export default function Main() {
     
     const router = useRouter();
 
@@ -73,7 +71,7 @@ export default function Main({getData}:MyProps) {
     setFirstName('');
     setLastName('');
 
-    router.push('/login')
+    // router.push('/login')
       
       
     };
@@ -120,9 +118,9 @@ export default function Main({getData}:MyProps) {
 
             
           </Box>
-          <Box component="form" noValidate onSubmit={handleWithGoogleSubmit} sx={{ mt: 3 }}>
-            <Button type="submit" fullWidth variant="contained" size="large" sx={{ mt: 3, mb: 2 }}> Continue with Google </Button>
-          </Box>
+          {/* <Box component="form" noValidate onSubmit={handleWithGoogleSubmit} sx={{ mt: 3 }}>
+            <Button type="submit" fullWidth variant="contained" size="large" sx={{ mt: 3, mb: 2 }}> Continue with Google </Button> */}
+          {/* </Box> */}
           
 
           <div text-color='gray'>
