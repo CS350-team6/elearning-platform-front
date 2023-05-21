@@ -41,7 +41,7 @@ export default function Main({getData}:MyProps) {
       
       const fetchedData: object = await fetchData();
 
-      if (fetchedData.result){
+      if (Boolean(fetchedData.result)){
         // console.log(fetchedData.loginToken); ## loginToken을 redux에 저장. 
         setID('');
         setPW('');

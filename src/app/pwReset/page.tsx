@@ -15,7 +15,7 @@ export default async function pwReset(){
         },
       });
       console.log("res : ",response.data);
-      return response.data.result
+      return Boolean(response.data.result);
       
     } catch (error) {
       console.error(error); // 에러 발생 시 에러를 출력
