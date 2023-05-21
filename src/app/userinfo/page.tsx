@@ -1,9 +1,5 @@
-import axios from 'axios';
-
-export default function Userinfo() {
-    return(
-        <div>
-            Userinfo
-        </div>
+export default function UserProfilePage() {
+    return (
+        <div>Hello, World !</div>
     )
 }
