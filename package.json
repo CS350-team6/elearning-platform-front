@@ -14,6 +14,8 @@
     "@mui/material": "^5.13.0",
     "@reduxjs/toolkit": "^1.9.5",
     "@types/node": "20.1.2",
+    "@types/react": "18.2.6",
+    "@types/react-dom": "18.2.4",
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
     "next": "^13.4.1",
@@ -24,21 +26,5 @@
     "redux-persist": "^6.0.0",
     "tailwindcss": "3.3.2",
     "typescript": "5.0.4"
-  },
-  "description": "This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",
-  "main": "next.config.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/CS350-team6/elearning-platform-front.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/CS350-team6/elearning-platform-front/issues"
-  },
-  "homepage": "https://github.com/CS350-team6/elearning-platform-front#readme",
-  "devDependencies": {
-    "@types/react": "^18.2.6",
-    "@types/react-dom": "^18.2.4"
   }
 }
