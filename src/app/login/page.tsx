@@ -4,7 +4,7 @@ import Main from './display';
 export default function Login() {
 
   async function getData(id: string, pw: string): Promise<object> {
-    "use server"
+    // "use server"
   
     try {
       // response를 boolean 형태로 받아와서 return response으로 바꾸기.

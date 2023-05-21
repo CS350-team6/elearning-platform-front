@@ -4,7 +4,7 @@ import Main from './display';
 export default function Register() {
 
   async function getData(id: string, pw: string): Promise<boolean> {
-    "use server"
+    // "use server"
   
     try {
       // response는 json 형식으로 response = { result : <boolean>, type: <number>} type : 0->success 1->id 2->pw

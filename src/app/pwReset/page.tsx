@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export default async function pwReset(){
   async function getData(email: string): Promise<boolean> {
-    "use server"
+    // "use server"
   
     try {
   
