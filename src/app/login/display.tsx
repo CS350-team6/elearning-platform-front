@@ -21,7 +21,7 @@ import { ConstructionOutlined } from '@mui/icons-material';
 
 const defaultTheme = createTheme();
 interface MyProps{
-  getData: (name: string, email: string) => Promise<boolean>;
+  getData: (name: string, email: string) => Promise<Object>;
 }
 
 export default function Main({getData}:MyProps) {
@@ -33,141 +33,76 @@ export default function Main({getData}:MyProps) {
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
+
+
       
       console.log("id : ", id)
       console.log("pw : ", pw)
       
-      const fetchedData = await fetchData();
-      if (fetchedData){
+      const fetchedData: object = await fetchData();
+
+      if (fetchedData.result){
+        // console.log(fetchedData.loginToken); ## loginToken을 redux에 저장. 
         setID('');
         setPW('');
         router.push('/main')
       } else {
+        setID('');
+        setPW('');
         setErrorMessage('Invalid ID or password');
         return;
       }
       
-      
-      
     };
 
-    async function fetchData() {
+    async function fetchData(): Promise<object> {
       const data_ = await getData(id, pw);
       return data_;
     }
 
   return (
-    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-      <TextField id="ID" label="ID" name="ID" 
-      value={id}  onChange={e => setID(e.target.value)} />
-    
-      <TextField name="PW" label="PW" id="PW"
-        value={pw}  onChange={e => setPW(e.target.value)} />
 
-      <Button type="submit"> Login </Button>
-      <Link href="/pwReset" variant="body2">
-            Forgot password?
-      </Link>
-      <Link href="/register" variant="body2">
-                  {"Don't have an account? Sign Up"}
-      </Link>
-      {errorMessage && <Typography color="error">{errorMessage}</Typography>}
-    </Box>
-    
+    <ThemeProvider theme={defaultTheme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign in
+          </Typography>
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+            <TextField id="ID" label="email" name="ID" margin='normal' required fullWidth
+            value={id}  onChange={e => setID(e.target.value)} />
+          
+            <TextField name="PW" label="password" id="PW" margin='normal' required fullWidth type="password"
+              value={pw}  onChange={e => setPW(e.target.value)} />
+
+            <Button type="submit" fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}> Login </Button>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Link href="/pwReset" variant="body2" style={{ textAlign: 'left' }}>
+                Forgot password?
+              </Link>
+              <Link href="/register" variant="body2" style={{ textAlign: 'right' }}>
+                {"Don't have an account? Sign Up"}
+              </Link>
+              
+            </div>
+            <div style={{ width: '100%', textAlign: 'center' }}>
+              {errorMessage && <Typography color="error">{errorMessage}</Typography>}
+            </div>
+          </Box>
+        </Box>
+      </Container>
+    </ThemeProvider>
+      
   )
 };
-
-//     <ThemeProvider theme={defaultTheme}>
-//       <Container component="main" maxWidth="xs">
-//         <CssBaseline />
-//         <Box
-//           sx={{
-//             marginTop: 8,
-//             display: 'flex',
-//             flexDirection: 'column',
-//             alignItems: 'center',
-//           }}
-//         >
-//           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-//             <LockOutlinedIcon />
-//           </Avatar>
-//           <Typography component="h1" variant="h5">
-//             Sign up
-//           </Typography>
-
-//           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-//             <Grid container spacing={2}>
-//               <Grid item xs={12} sm={6}>
-//                 <TextField
-//                   autoComplete="given-name"
-//                   name="firstName"
-//                   required
-//                   fullWidth
-//                   id="firstName"
-//                   label="First Name"
-//                   autoFocus
-//                 />
-//               </Grid>
-//               <Grid item xs={12} sm={6}>
-//                 <TextField
-//                   required
-//                   fullWidth
-//                   id="lastName"
-//                   label="Last Name"
-//                   name="lastName"
-//                   autoComplete="family-name"
-//                 />
-//               </Grid>
-//               <Grid item xs={12}>
-//                 <TextField
-//                   required
-//                   fullWidth
-//                   id="ID"
-//                   label="ID"
-//                   name="ID"
-//                   autoComplete="ID"
-//                   value={id} 
-//                   onChange={e => setID(e.target.value)}
-//                 />
-//               </Grid>
-//               <Grid item xs={12}>
-//                 <TextField
-//                   required
-//                   fullWidth
-//                   name="PW"
-//                   label="PW"
-//                   type="PW"
-//                   id="PW"
-//                   autoComplete="new-PW"
-//                   value={pw} 
-//                   onChange={e => setPW(e.target.value)}
-//                 />
-//               </Grid>
-//               <Grid item xs={12}>
-//                 <FormControlLabel
-//                   control={<Checkbox value="allowExtraEmails" color="primary" />}
-//                   label="I want to receive inspiration, marketing promotions and updates via email."
-//                 />
-//               </Grid>
-//             </Grid>
-//             <Button
-//               type="submit"
-//               fullWidth
-//               variant="contained"
-//               sx={{ mt: 3, mb: 2 }}
-//             >
-//               Sign Up
-//             </Button>
-//             <Grid container justifyContent="flex-end">
-//               <Grid item>
-//                 <Link href="#" variant="body2">
-//                   Already have an account? Sign in
-//                 </Link>
-//               </Grid>
-//             </Grid>
-//           </Box>
-//         </Box>
-//       </Container>
-//     </ThemeProvider>
-//   );
-// }

@@ -3,26 +3,29 @@ import Main from './display';
 
 export default function Register() {
 
-  async function getData(id: string, pw: string): Promise<string> {
+  async function getData(id: string, pw: string): Promise<boolean> {
     "use server"
   
     try {
-  
+      // response는 json 형식으로 response = { result : <boolean>, type: <number>} type : 0->success 1->id 2->pw
       const response = await axios.post('http://localhost:8000/users', {
-        name: id,
-        email: pw,
+        userId: id,
+        userPw: pw,
       }, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
-      return "register succes";
+      
+      // response를 json parse를 통해서 response result를 추출하기
+
+      return response.data.result;
       
     } catch (error) {
-      console.error(error); // 에러 발생 시 에러를 출력
+      console.error(error); 
   
     }
-    return "register fail";
+    return false;
   }
   
   return (

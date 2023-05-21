@@ -3,24 +3,35 @@ import Main from './display';
 
 export default function Login() {
 
-  async function getData(id: string, pw: string): Promise<boolean> {
+  async function getData(id: string, pw: string): Promise<object> {
     "use server"
   
     try {
-  
+      // response를 boolean 형태로 받아와서 return response으로 바꾸기.
       const response = await axios.post('http://localhost:8000/users', {
-        name: id,
-        email: pw,
+        userId: id,
+        userPw: pw,
       }, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
-      return true;
+
+      console.log("login page : ", response.data);
+      return response.data;
       
     } catch (error) {
-      console.error(error); // 에러 발생 시 에러를 출력
-      return false;
+      console.error(error);
+      type MyObject = {
+        result: boolean,
+        error: string,
+        
+      }
+      const errorMsg: MyObject = {
+        result : false,
+        error : "error"
+      } 
+      return errorMsg;
     }
     
   }

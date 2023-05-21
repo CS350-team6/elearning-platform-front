@@ -1,49 +1,93 @@
 "use client";
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
+
+import { useRouter } from 'next/navigation';
+
+import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ConstructionOutlined } from '@mui/icons-material';
+
+const defaultTheme = createTheme();
 
 import React, { useEffect, useState } from 'react';
 
 
 interface MyProps{
-  getData: (name: string) => Promise<string>;
+  getData: (name: string) => Promise<boolean>;
 }
 export default function Main({getData}: MyProps) {
     const [id, setID] = useState('');
-
-    const handleEmailSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const router = useRouter();
+    const [errorMessage, setErrorMessage] = useState('');
+    const handleEmailSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        fetchData();
-  
-        setID('');
+        const fetchedData = await fetchData();
+        
+        if (fetchedData){
+            router.push('/main')
+        } else {
+            setErrorMessage('Invalid email');
+            return;
+        }
+       
   
       };
 
-    async function fetchData() {
+    async function fetchData(){
         const data_ = await getData(id);
-        console.log("send.tsx : ", data_);
+        return data_;
+
     }
     return (
-        <Box>
-            <Box component="form" noValidate onSubmit={handleEmailSubmit} sx={{ mt: 3 }}>
-                <TextField id="ID" label="ID" name="ID" 
-                value={id}  onChange={e => setID(e.target.value)} />
-                <Button type="submit"> get a new password </Button>
-            </Box>
+        <ThemeProvider theme={defaultTheme}>
+            <Container component="main" maxWidth="xs">
+                <CssBaseline />
+                <Box
+                    sx={{
+                    marginTop: 8,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    }}
+                >
+                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                        <LockOutlinedIcon />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        reset password
+                    </Typography>
 
-            <Box component="form" noValidate onSubmit={handleEmailSubmit} sx={{ mt: 3 }}>
-                <Button type="submit"> send again! </Button>
-            </Box>
-            <Link href="/login" variant="body2">
-                go to login
-            </Link>
+                    <Box>
+                        <Box component="form" noValidate onSubmit={handleEmailSubmit} sx={{ mt: 3 }}>
+                            <TextField id="ID" label="email" name="ID"  margin='normal' required fullWidth
+                            value={id}  onChange={e => setID(e.target.value)} />
+                            <Button type="submit" fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}> get a new password </Button>
+                        </Box>
+                        {errorMessage && <Typography color="error">{errorMessage}</Typography>}
+                    </Box>
 
-
-        </Box>
+                    
+                    <Box component="form" noValidate onSubmit={handleEmailSubmit} >
+                        <Button type="submit" fullWidth  sx={{ mt: 3, mb: 2 }}> send again </Button>
+                    </Box>
+                    <Link href="/login" variant="body2" style={{ textAlign: 'right' }}>
+                        go to login
+                    </Link>
+                    
+                </Box>
+            </Container>
+        </ThemeProvider>
         
-       
       )
 }
