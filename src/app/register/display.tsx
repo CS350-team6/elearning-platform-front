@@ -1,5 +1,7 @@
 "use client";
 
+import {getData} from "./link";
+
 import React, { useState, useRef } from 'react';
 
 import React, { useState, useRef } from 'react';
@@ -14,10 +16,6 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-interface MyProps{
-  getData: (name: string, email: string) => Promise<boolean>;
-}
 
 const defaultTheme = createTheme();
 
