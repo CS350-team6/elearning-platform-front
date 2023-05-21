@@ -12,10 +12,13 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+interface MyProps{
+  getData: (name: string, email: string) => Promise<boolean>;
+}
 
 const defaultTheme = createTheme();
 
-export default function Main() {
+export default function Main({getData}:MyProps) {
     
     const router = useRouter();
 
