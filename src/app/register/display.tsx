@@ -73,7 +73,6 @@ export default function Display(props: MyProps) {
       }
 
 
-
       const fetchedData = await fetchData();
      
       if(fetchedData){
@@ -82,17 +81,7 @@ export default function Display(props: MyProps) {
         setFirstName('');
         setLastName('');
 
-        router.push('/login')
-        
-      } else {
-        setID('');
-        setPW('');
-        setFirstName('');
-        setLastName('');
-        setErrorMessage('Invalid ID or password');
-
-        return;
-      }
+    router.push('/login')
       
     };
 
