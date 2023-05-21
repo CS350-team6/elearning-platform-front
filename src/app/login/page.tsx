@@ -8,17 +8,18 @@ export default function Login() {
   
     try {
       // response를 boolean 형태로 받아와서 return response으로 바꾸기.
-      const response = await axios.post('https://elearning-back.fly.dev/user_account/login', {
-        userId: id,
-        userPw: pw,
-      }, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      // const response = await axios.post('https://elearning-back.fly.dev/user_account/login', {
+      //   userId: id,
+      //   userPw: pw,
+      // }, {
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      // });
 
-      console.log("login page : ", response.data);
-      return response.data;
+      // console.log("login page : ", response.data);
+      // return response.data;
+      return {result: "true"};
       
     } catch (error) {
       console.error(error);
