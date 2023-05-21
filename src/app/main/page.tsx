@@ -1,7 +1,7 @@
 import Main from './display';
-import axios from 'axios';
 
-export default async function pwReset(){
+
+export default  function pwReset(){
  
   
     return (
