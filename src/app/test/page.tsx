@@ -4,7 +4,7 @@ import Second from './second';
 
 
 async function getData(): Promise<number> {
-return axios.post('http://localhost:8000/users', {
+return axios.post('https://elearning-back.fly.dev/users', {
     name: 'Dexter',
     email : "dohye0807"
   },{

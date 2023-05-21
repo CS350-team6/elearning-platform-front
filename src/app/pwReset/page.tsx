@@ -7,7 +7,7 @@ export default async function pwReset(){
   
     try {
   
-      const response = await axios.post('http://localhost:8000/users', {
+      const response = await axios.post('https://elearning-back.fly.dev/users', {
         email: email,
       }, {
         headers: {

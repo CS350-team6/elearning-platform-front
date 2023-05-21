@@ -8,7 +8,7 @@ export default function Login() {
   
     try {
       // response를 boolean 형태로 받아와서 return response으로 바꾸기.
-      const response = await axios.post('http://localhost:8000/user_account/login', {
+      const response = await axios.post('https://elearning-back.fly.dev/user_account/login', {
         userId: id,
         userPw: pw,
       }, {
