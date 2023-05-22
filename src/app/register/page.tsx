@@ -7,7 +7,6 @@ export default function Register() {
   async function getData(id: string, pw: string): Promise<boolean> {
     'use server';
 
-
     try {
       // https://elearning-back.fly.dev/
     const response = await axios.post('https://elearning-back.fly.dev/user_account/signup/', {
@@ -23,9 +22,9 @@ export default function Register() {
     } catch (error) {
       // console.error(error)
       // console.log("?")
-
+      return false;
     }
-    return false;
+    
   }
 
   return (
