@@ -41,7 +41,7 @@ export default function LoginMain({getData}:MyProps) {
         setID('');
         setPW('');
         console.log("login success")
-        // router.push('/test')
+        router.push('/test')
       } else {
         setID('');
         setPW('');
@@ -82,9 +82,9 @@ export default function LoginMain({getData}:MyProps) {
 
             <Button type="submit" fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}> Login </Button>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              {/* <Link href="/pwReset" variant="body2" style={{ textAlign: 'left' }}>
+              <Link href="/pwReset" variant="body2" style={{ textAlign: 'left' }}>
                 Forgot password?
-              </Link> */}
+              </Link>
               <Link href="/register" variant="body2" style={{ textAlign: 'right' }}>
                 {"Don't have an account? Sign Up"}
               </Link>
