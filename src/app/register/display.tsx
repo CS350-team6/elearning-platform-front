@@ -1,8 +1,7 @@
 "use client";
 
-import {getData} from "./link";
-
 import React, { useState, useRef } from 'react';
+
 import { useRouter } from 'next/navigation';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,9 +13,13 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+interface MyProps{
+  getData: (name: string, email: string) => Promise<boolean>;
+}
+
 const defaultTheme = createTheme();
 
-export default function Main() {
+export default function Main({getData}:MyProps) {
     
     const router = useRouter();
 
@@ -35,7 +38,7 @@ export default function Main() {
     const handleWithGoogleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
     
       event.preventDefault();
-      router.push('/main')
+      // router.push('/main')
     }
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -66,15 +69,36 @@ export default function Main() {
       }
 
       
-    setID('');
-    setPW('');
-    setFirstName('');
-    setLastName('');
+    
+      const fetchedData = await fetchData();
+     
+      if(fetchedData){
+        setID('');
+        setPW('');
+        setFirstName('');
+        setLastName('');
+        return;
+        // router.push('/login')
+        
+      } else {
+        setID('');
+        setPW('');
+        setFirstName('');
+        setLastName('');
+        setErrorMessage('Invalid ID or password');
 
-    // router.push('/login')
-      
+        return;
+      }
       
     };
+
+    async function fetchData() {
+      const data_ = await getData(id, pw);
+      
+      return data_;
+    }
+      
+   
 
  
 
