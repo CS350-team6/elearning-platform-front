@@ -77,7 +77,17 @@ export default function Display(props: MyProps) {
         setFirstName('');
         setLastName('');
 
-    router.push('/login')
+        router.push('/login')
+        
+      } else {
+        setID('');
+        setPW('');
+        setFirstName('');
+        setLastName('');
+        setErrorMessage('Invalid ID or password');
+
+        return;
+      }
       
     };
 
@@ -136,10 +146,10 @@ export default function Display(props: MyProps) {
           </Box>
           
 
-          {/* <div text-color='gray'>
+          <div text-color='gray'>
             Already have an account? 
             <Link href="/login" variant="body2"> Sign in </Link>          
-          </div> */}
+          </div>
           
 
       </Box>
