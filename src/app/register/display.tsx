@@ -38,7 +38,7 @@ export default function Main({getData}:MyProps) {
     const handleWithGoogleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
     
       event.preventDefault();
-      // router.push('/main')
+      router.push('/')
     }
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -75,8 +75,8 @@ export default function Main({getData}:MyProps) {
         setPW('');
         setFirstName('');
         setLastName('');
-        return;
-        // router.push('/login')
+
+        router.push('/login')
         
       } else {
         setID('');
@@ -140,15 +140,15 @@ export default function Main({getData}:MyProps) {
 
             
           </Box>
-          {/* <Box component="form" noValidate onSubmit={handleWithGoogleSubmit} sx={{ mt: 3 }}>
-            <Button type="submit" fullWidth variant="contained" size="large" sx={{ mt: 3, mb: 2 }}> Continue with Google </Button> */}
-          {/* </Box> */}
+          <Box component="form" noValidate onSubmit={handleWithGoogleSubmit} sx={{ mt: 3 }}>
+            <Button type="submit" fullWidth variant="contained" size="large" sx={{ mt: 3, mb: 2 }}> Continue with Google </Button> 
+          </Box>
           
 
-          {/* <div text-color='gray'>
+          <div text-color='gray'>
             Already have an account? 
             <Link href="/login" variant="body2"> Sign in </Link>          
-          </div> */}
+          </div>
           
 
       </Box>
