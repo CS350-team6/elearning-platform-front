@@ -1,8 +1,8 @@
 import * as React from 'react';
-import AddressForm from './AddressForm';
+import UserInfoForm from './UserInfoForm';
 
 export default function Userinfo() {
   return (
-    <AddressForm />
+    <UserInfoForm />
   );
 }
