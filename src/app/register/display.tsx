@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef } from 'react';
-
+// import {getData} from "./link";
 import { useRouter } from 'next/navigation';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -19,7 +19,7 @@ interface MyProps{
 
 const defaultTheme = createTheme();
 
-export default function Main({getData}:MyProps) {
+export default function Display(props: MyProps) {
     
     const router = useRouter();
 
@@ -38,7 +38,7 @@ export default function Main({getData}:MyProps) {
     const handleWithGoogleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
     
       event.preventDefault();
-      // router.push('/main')
+      router.push('/')
     }
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -75,8 +75,8 @@ export default function Main({getData}:MyProps) {
         setPW('');
         setFirstName('');
         setLastName('');
-        return;
-        // router.push('/login')
+
+        router.push('/login')
         
       } else {
         setID('');
@@ -91,7 +91,7 @@ export default function Main({getData}:MyProps) {
     };
 
     async function fetchData() {
-      const data_ = await getData(id, pw);
+      const data_ = await props.getData(id, pw);
       
       return data_;
     }
@@ -140,9 +140,9 @@ export default function Main({getData}:MyProps) {
 
             
           </Box>
-          {/* <Box component="form" noValidate onSubmit={handleWithGoogleSubmit} sx={{ mt: 3 }}>
-            <Button type="submit" fullWidth variant="contained" size="large" sx={{ mt: 3, mb: 2 }}> Continue with Google </Button> */}
-          {/* </Box> */}
+          <Box component="form" noValidate onSubmit={handleWithGoogleSubmit} sx={{ mt: 3 }}>
+            <Button type="submit" fullWidth variant="contained" size="large" sx={{ mt: 3, mb: 2 }}> Continue with Google </Button> 
+          </Box>
           
 
           {/* <div text-color='gray'>
