@@ -1,11 +1,8 @@
-import  Main from "./display"
+import  Display from "./display"
 export default function Register() {
-
-  
-  
-  return (
+return (
     <div>
-      <Main/>
+      <Display/>
     </div>
   );
 }
