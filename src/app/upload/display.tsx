@@ -33,6 +33,19 @@ export default function UploadMain({getLectureData, getVideoData}:MyProps) {
   
       <VideoBox getVideoData={getVideoData} lecture={lecture} year={year} semester={semester}/>
       <UploadBox/> */}
+      
+      <SearchBox 
+        getLectureData={getLectureData} 
+        lecture={lecture} setLecture={setLecture}
+        year={year} setYear={setYear}
+        semester={semester} setSemester={setSemester}
+      />
+  
+      <VideoBox getVideoData={getVideoData} lecture={lecture} year={year} semester={semester}/>
+      <UploadBox/>
+      
+      
+      
     </div>
   );
 }
