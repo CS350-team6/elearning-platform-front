@@ -1,8 +1,7 @@
 "use client";
 
-import {getData} from "./link";
-
 import React, { useState, useRef } from 'react';
+// import {getData} from "./link";
 import { useRouter } from 'next/navigation';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,9 +13,13 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+interface MyProps{
+  getData: (name: string, email: string) => Promise<boolean>;
+}
+
 const defaultTheme = createTheme();
 
-export default function Display() {
+export default function Display(props: MyProps) {
     
     const router = useRouter();
 
@@ -35,7 +38,7 @@ export default function Display() {
     const handleWithGoogleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
     
       event.preventDefault();
-      // router.push('/main')
+      router.push('/')
     }
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -65,15 +68,35 @@ export default function Display() {
         }
       }
 
-      
-    setID('');
-    setPW('');
-    setFirstName('');
-    setLastName('');
+      const fetchedData = await fetchData();
+     
+      if(fetchedData){
+        setID('');
+        setPW('');
+        setFirstName('');
+        setLastName('');
 
-    // router.push('/login')
+        router.push('/login')
+        
+      } else {
+        setID('');
+        setPW('');
+        setFirstName('');
+        setLastName('');
+        setErrorMessage('Invalid ID or password');
+
+        return;
+      }
       
     };
+
+    async function fetchData() {
+      const data_ = await props.getData(id, pw);
+      
+      return data_;
+    }
+      
+   
 
  
 
@@ -117,9 +140,9 @@ export default function Display() {
 
             
           </Box>
-          {/* <Box component="form" noValidate onSubmit={handleWithGoogleSubmit} sx={{ mt: 3 }}>
-            <Button type="submit" fullWidth variant="contained" size="large" sx={{ mt: 3, mb: 2 }}> Continue with Google </Button> */}
-          {/* </Box> */}
+          <Box component="form" noValidate onSubmit={handleWithGoogleSubmit} sx={{ mt: 3 }}>
+            <Button type="submit" fullWidth variant="contained" size="large" sx={{ mt: 3, mb: 2 }}> Continue with Google </Button> 
+          </Box>
           
 
           {/* <div text-color='gray'>

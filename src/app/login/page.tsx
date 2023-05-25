@@ -1,15 +1,13 @@
 import axios from 'axios';
-import Display from './display';
+import LoginMain from './display';
 
-
-
-export default function Register() {
+export default function Login() {
   async function getData(id: string, pw: string): Promise<boolean> {
     'use server';
 
     try {
       // https://elearning-back.fly.dev/
-    const response = await axios.post('https://elearning-back.fly.dev/user_account/signup/', {
+    const response = await axios.post('https://elearning-back.fly.dev/user_account/login/', {
       "email": id,
       "password": pw,
     }, {
@@ -17,11 +15,12 @@ export default function Register() {
         'Content-Type': 'application/json',
       },
     });
+       console.log("!");
        return Boolean(response.data.result);
     
     } catch (error) {
       // console.error(error)
-      // console.log("?")
+      console.log("?")
       return false;
     }
     
@@ -29,7 +28,7 @@ export default function Register() {
 
   return (
     <div>
-        <Display getData={getData}/>
+        <LoginMain getData={getData}/>
     </div>
   );
 }
