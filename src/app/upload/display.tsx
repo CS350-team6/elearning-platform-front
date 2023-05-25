@@ -1,39 +1,38 @@
 'use client';
-import React, { useState } from 'react';
 
-export default function UploadMain() {
-  const [success, setSuccess] = useState<boolean>(false);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+import VideoBox from './videoBox';
+import UploadBox from './uploadBox';
+import SearchBox from './searchBox';
+import React, { useState, useRef, useEffect } from 'react';
+interface MyProps{
+  getLectureData: (id: string, pw: string, title: string, desc: string) => Promise<{ result:boolean, title: string[] }>;
+  getVideoData: (lecture: string) => Promise<{ result:boolean, video: string[]}>;
+  children?: React.ReactNode;
+}
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    setSelectedFile(file || null);
-  };
+// const defaultTheme = createTheme();
 
-  const handleUpload = () => {
-    console.log("!")
-    if (selectedFile) {
-      const formData = new FormData();
-      formData.append('video', selectedFile);
-      console.log(formData);
-    }
-    setSuccess(true);
-    
-  };
+export default function UploadMain({getLectureData, getVideoData}:MyProps) {
+  const [lecture, setLecture] = useState<string>('');
+  const [year, setYear] = useState<string>('');
+  const [semester, setSemester] = useState<string>('');
 
+  // video 띄울때 lecture : "A", "B", "C"   3중 하나로 
   return (
     <div>
-      <input type="file" onChange={handleFileChange} />
-      <button onClick={handleUpload}>Upload</button>
-
-      {success &&
-        selectedFiles.map((file, index) => (
-          <div key={index}>
-            <p>Uploaded File: {file.name}</p>
-            {/* 추가적인 업로드 정보 또는 UI 요소 */}
-          </div>
-        ))}
+      
+      <SearchBox 
+        getLectureData={getLectureData} 
+        lecture={lecture} setLecture={setLecture}
+        year={year} setYear={setYear}
+        semester={semester} setSemester={setSemester}
+      />
+  
+      <VideoBox getVideoData={getVideoData} lecture={lecture} year={year} semester={semester}/>
+      <UploadBox/>
+      
+      
+      
     </div>
   );
 }
