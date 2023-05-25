@@ -1,29 +1,7 @@
-import axios from 'axios';
-
-async function getData(): Promise<boolean> {
-    'use server';
-    console.log("in page.tsx");
-
-    try {
-      // https://elearning-back.fly.dev/
-    const response = await axios.post('http://127.0.0.1:8000/user_account/signup/', {
-      "email": "1",
-      "password": "2",
-    }, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    console.log("!")
-    return true;
-    
-    } catch (error) {
-      // console.error("error")
-      console.log("?")
-
-    }
-    return false;
-  }
+import { redirect } from 'next/navigation';
+export default async function Home() {
+    redirect('/home');
+}
 
 export default function Test() {
   

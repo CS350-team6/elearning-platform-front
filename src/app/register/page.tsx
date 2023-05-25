@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Main from './display';
+import Display from './display';
 
 
 
@@ -29,7 +29,7 @@ export default function Register() {
 
   return (
     <div>
-        <Main getData={getData}/>
+        <Display getData={getData}/>
     </div>
   );
 }
