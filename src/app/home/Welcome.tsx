@@ -5,14 +5,13 @@ import Typography from '@mui/material/Typography';
 
 export default function Welcome(){
     return (
-        <Box sx={{m:3}}>
-            <Typography variant="h1" component="div" sx={{ flexGrow: 1 }}>
+        <Box sx={{m:3, textAlign:'center'}}>
+            <Typography variant="h1" component="div" sx={{ flexGrow: 1, lineHeight: 4}}>
                 Welcome.
             </Typography>
-            <Typography variant="h3" component="div" sx={{ flexGrow: 1 }}>
+            <Typography variant="h3" component="div" sx={{ flexGrow: 1, lineHeight: 3 }}>
                 Start your journey of efficient learning with us!
             </Typography>
-            <Button variant="contained" color="primary"> Continue with Google </Button> 
         </Box>
     )
 }

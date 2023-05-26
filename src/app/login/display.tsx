@@ -80,7 +80,7 @@ export default function LoginMain({getData}:MyProps) {
             <TextField name="PW" label="password" id="PW" margin='normal' required fullWidth type="password"
               value={pw}  onChange={e => setPW(e.target.value)} />
 
-            <Button type="submit" fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}> Login </Button>
+            <Button type="submit" fullWidth variant='outlined' sx={{ mt: 3, mb: 4 }}> Login </Button>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <Link href="/pwreset" variant="body2" style={{ textAlign: 'left' }}>
                 Forgot password?
