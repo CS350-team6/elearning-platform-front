@@ -50,7 +50,7 @@ export default function Upload() {
       };
 
     } catch (error) {
-      // console.error(error);
+      console.error(error);
       console.log("page.tsx line67 : error")
 
       return {
