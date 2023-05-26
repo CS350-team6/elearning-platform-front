@@ -1,7 +1,7 @@
-import Welcome from './Welcome';
+import Home from './Home';
 
-export default function Home() {
+export default function VideoHome() {
     return (
-        <Welcome />
+        <Home />
     )
 }
