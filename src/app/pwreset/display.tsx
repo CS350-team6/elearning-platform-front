@@ -56,25 +56,25 @@ export default function Main({getData}: MyProps) {
                     }}
                 >
     
-                    <Typography component="h1" variant="h5">
-                        reset password
+                    <Typography component="h1" variant="h4">
+                        Reset password
                     </Typography>
 
                     <Box>
-                        <Box component="form" noValidate onSubmit={handleEmailSubmit} sx={{ mt: 3 }}>
-                            <TextField id="ID" label="email" name="ID"  margin='normal' required fullWidth
+                        <Box component="form" noValidate onSubmit={handleEmailSubmit} sx={{ mt: 5 }}>
+                            <TextField id="ID" label="E-mail" name="ID"  margin='normal' required fullWidth
                             value={id}  onChange={e => setID(e.target.value)} />
-                            <Button type="submit" fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}> get a new password </Button>
+                            <Button type="submit" fullWidth variant='outlined' sx={{ mt: 3 }}> get a new password </Button>
                         </Box>
                         {errorMessage && <Typography color="error">{errorMessage}</Typography>}
                     </Box>
 
                     
                     <Box component="form" noValidate onSubmit={handleEmailSubmit} >
-                        <Button type="submit" fullWidth  sx={{ mt: 3, mb: 2 }}> send again </Button>
+                        <Button type="submit" fullWidth  variant='outlined' sx={{ mt: 3, mb: 3 }}> send again </Button>
                     </Box>
                     <Link href="/login" variant="body2" style={{ textAlign: 'right' }}>
-                        go to login
+                        Go to Login page
                     </Link>
                     
                 </Box>
