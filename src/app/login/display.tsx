@@ -70,11 +70,11 @@ export default function LoginMain({getData}:MyProps) {
           }}
         >
 
-          <Typography component="h1" variant="h5">
-            Sign in
+          <Typography component="h1" variant="h5" sx={{lineHeight: 2}}>
+            Sign In
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-            <TextField id="ID" label="email" name="ID" margin='normal' required fullWidth
+            <TextField id="ID" label="E-mail" name="ID" margin='normal' required fullWidth
             value={id}  onChange={e => setID(e.target.value)} />
           
             <TextField name="PW" label="password" id="PW" margin='normal' required fullWidth type="password"

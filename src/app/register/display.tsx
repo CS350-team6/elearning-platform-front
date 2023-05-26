@@ -114,14 +114,14 @@ export default function Display(props: MyProps) {
             }}
         >
           
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" sx={{lineHeight: 2}}>
             Sign Up
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>  
               
               <Grid item xs={12}>  
-                <TextField id="ID" label="email" name="ID" required fullWidth 
+                <TextField id="ID" label="E-mail" name="ID" required fullWidth 
                 value={id} inputRef={idFieldRef}  onChange={e => setID(e.target.value)} />
               </Grid> 
               <Grid item xs={12}>
