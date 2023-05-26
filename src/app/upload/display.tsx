@@ -1,9 +1,9 @@
 'use client';
 
 
-// import VideoBox from './videoBox';
-// import UploadBox from './uploadBox';
-// import SearchBox from './searchBox';
+import VideoBox from './videoBox';
+import UploadBox from './uploadBox';
+import SearchBox from './searchBox';
 
 import React, { useState, useRef, useEffect } from 'react';
 interface MyProps{
