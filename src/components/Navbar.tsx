@@ -1,10 +1,8 @@
 "use client"
 
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -14,7 +12,7 @@ export default function Navbar() {
   const router = useRouter();
 
   return (
-    <Box sx={{ flexGrow: 1, bgcolor: "ActiveBorder" }}>
+    <Box sx={{ flexGrow: 1, bgcolor: "gray" }}>
         <Toolbar>
           <IconButton
             size="large"
@@ -25,11 +23,10 @@ export default function Navbar() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} onClick={() => router.push("/home")}>
-            Efficient E-learning
-          </Typography>
-          <Button color="inherit" onClick={() => router.push("/register")}>Register</Button>
-          <Button color="inherit" onClick={() => router.push("/login")}>Login</Button>
+          <Button color="inherit" onClick={() => router.push("/home")} variant="text" sx={{ mr : 120}} style ={{ fontSize: '20px'}}> Efficient E-learning</Button>
+          <Button color="inherit" onClick={() => router.push("/register")} variant="outlined" sx={{ margin:2 }}>Register</Button>
+          <Button color="inherit" onClick={() => router.push("/login")} variant="outlined">Login</Button>
+
         </Toolbar>
     </Box>
   );

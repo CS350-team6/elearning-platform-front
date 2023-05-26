@@ -125,14 +125,14 @@ export default function Display(props: MyProps) {
         >
           
           
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" sx={{lineHeight: 2}}>
             Sign Up
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>  
               
               <Grid item xs={12}>  
-                <TextField id="ID" label="email" name="ID" required fullWidth 
+                <TextField id="ID" label="E-mail" name="ID" required fullWidth 
                 value={id} inputRef={idFieldRef}  onChange={e => setID(e.target.value)} />
               </Grid> 
               <Grid item xs={12}>
@@ -140,7 +140,7 @@ export default function Display(props: MyProps) {
                 value={pw} inputRef={pwFieldRef}  onChange={e => setPW(e.target.value)} />
               </Grid> 
             </Grid>
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}> Sign Up </Button>
+            <Button type="submit" fullWidth variant="outlined" sx={{ mt: 3, mb: 1 }}> Sign Up </Button>
             
             { errorMessage && 
               <Typography color="error">
@@ -151,10 +151,6 @@ export default function Display(props: MyProps) {
 
             
           </Box>
-          <Box component="form" noValidate onSubmit={handleWithGoogleSubmit} sx={{ mt: 3 }}>
-            <Button type="submit" fullWidth variant="contained" size="large" sx={{ mt: 3, mb: 2 }}> Continue with Google </Button> 
-          </Box>
-          
 
           <div text-color='gray'>
             Already have an account? 
