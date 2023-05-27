@@ -2,7 +2,31 @@ import axios, {AxiosResponse} from 'axios';
 import UploadMain from './display';
 
 export default function Upload() {
-  async function getLectureData(id: string, pw: string, title: string, desc: string): Promise<{ result:boolean, title: string[] }> {
+  async function uploadVideo(video:File, thumb:File, title:string, desc:string, lecture:string, year:string, semester:string): Promise<{result:boolean }>{
+    'use server';
+    try {
+      // https://elearning-back.fly.dev/
+    const response = await axios.post('http://127.0.0.1:8000/user_account/uploadTest/', {
+      "postVideo": video,
+      "postThumb": thumb,
+      "postTitle" : title,
+      "postDesc" : desc,
+      "postLecture" : lecture,
+      "postYear" : year,
+      "postSemester": semester
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+       return response.data.result;
+    
+    } catch (error) {
+      return {"result": false};
+    }
+  }
+
+  async function getLectureData(id: string, pw: string, title: string, desc: string): Promise<{ result:boolean, title:[]}> {
     'use server';
 
     try {
@@ -62,6 +86,7 @@ export default function Upload() {
   return (
 
     <div>
+      
         <UploadMain getLectureData={getLectureData} getVideoData={getVideoData}/>      
     </div>
   );

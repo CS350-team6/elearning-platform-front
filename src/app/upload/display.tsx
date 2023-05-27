@@ -1,5 +1,5 @@
 'use client';
-
+import "./upload.css"
 
 import VideoBox from './videoBox';
 import UploadBox from './uploadBox';
@@ -15,36 +15,17 @@ interface MyProps{
 // const defaultTheme = createTheme();
 
 export default function UploadMain({getLectureData, getVideoData}:MyProps) {
-  const [lecture, setLecture] = useState<string>('');
-  const [year, setYear] = useState<string>('');
-  const [semester, setSemester] = useState<string>('');
-
   // video 띄울때 lecture : "A", "B", "C"   3중 하나로 
   return (
-    <div>
+    <div className='videoUploadMain'>
 
-{/*       
-      <SearchBox 
-        getLectureData={getLectureData} 
-        lecture={lecture} setLecture={setLecture}
-        year={year} setYear={setYear}
-        semester={semester} setSemester={setSemester}
-      />
-  
-      <VideoBox getVideoData={getVideoData} lecture={lecture} year={year} semester={semester}/>
-      <UploadBox/> */}
       
-      {/* <SearchBox 
-        getLectureData={getLectureData} 
-        lecture={lecture} setLecture={setLecture}
-        year={year} setYear={setYear}
-        semester={semester} setSemester={setSemester}
-      />
+      <SearchBox getLectureData={getLectureData} />
   
-      <VideoBox getVideoData={getVideoData} lecture={lecture} year={year} semester={semester}/>
+      <VideoBox getVideoData={getVideoData} />
       <UploadBox/>
-       */}
       
+
       
     </div>
   );
