@@ -1,0 +1,25 @@
+.videoUploadMain{
+  display: grid;
+  grid-gap: 5px;
+  padding: 10px;
+  width: 100vw; /* 뷰포트 너비에 맞추어 설정 */
+  height: 100vh;
+  
+}
+
+@media (min-width: 800px) {
+  .videoUploadMain {
+    grid-template-columns: 1fr 2fr 1fr; /* 뷰포트 너비가 600px 이상일 때 3개의 열을 정의 */
+    grid-template-rows: 50px 100px 75px;
+
+  }
+}
+
+@media (max-width: 799px) {
+  .videoUploadMain {
+    grid-template-columns: 1fr; /* 뷰포트 너비가 599px 이하일 때 1개의 열을 정의 */
+    grid-template-rows: 50px 100px 75px;
+
+  }
+}
+

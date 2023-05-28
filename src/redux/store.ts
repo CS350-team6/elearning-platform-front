@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import counterReducer from "./features/counterSlice";
-import uploadReducer from "./features/videoUploadSlice";
+
+import searchReducer from "./features/videoSearchSlice";
 import { userApi } from "./services/userApi";
 import { searchApi } from "./services/searchApi";
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
@@ -8,7 +9,8 @@ import { setupListeners } from "@reduxjs/toolkit/dist/query";
 export const store = configureStore({
   reducer: {
     counterReducer,
-    uploadReducer,
+
+    searchReducer,
     [userApi.reducerPath]: userApi.reducer,
     [searchApi.reducerPath]: searchApi.reducer,
   },

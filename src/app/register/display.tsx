@@ -68,6 +68,7 @@ export default function Display(props: MyProps) {
         }
       }
 
+
       const fetchedData = await fetchData();
      
       if(fetchedData){
@@ -141,10 +142,10 @@ export default function Display(props: MyProps) {
             
           </Box>
 
-          {/* <div text-color='gray'>
+          <div text-color='gray'>
             Already have an account? 
             <Link href="/login" variant="body2"> Sign in </Link>          
-          </div> */}
+          </div>
           
 
       </Box>
