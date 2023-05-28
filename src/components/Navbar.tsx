@@ -13,7 +13,6 @@ export default function Navbar() {
 
   return (
     <Box sx={{ flexGrow: 1, bgcolor: "gray" }}>
-    <Box sx={{ flexGrow: 1, bgcolor: "gray" }}>
         <Toolbar>
           <IconButton
             size="large"
