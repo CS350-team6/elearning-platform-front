@@ -37,5 +37,5 @@ next-env.d.ts
 #security
 .env
 
-# working 
-/src/app/upload
+# # working 
+# /src/app/upload
