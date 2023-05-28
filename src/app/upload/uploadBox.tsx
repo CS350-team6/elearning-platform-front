@@ -4,10 +4,11 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { setLectureList, setYear, setLecture, setSemester } from '@/redux/features/videoSearchSlice';
 
 interface MyProps{
-  getLectureData: (id: string, pw: string, title: string, desc: string) => Promise<{ result:boolean, title: string[] }>;
+  uploadVideo: (video:File, title:string, desc:string, lecture:string, year:string, semester:string) => Promise<{result:boolean }>;
+  children?: React.ReactNode;
 }
 
-export default function UploadBox() {
+export default function UploadBox({uploadVideo}:MyProps) {
   const semester = useAppSelector((state) => state.searchReducer.semester);
   const year = useAppSelector((state) => state.searchReducer.year);
   const lecture = useAppSelector((state) => state.searchReducer.lecture);
@@ -17,11 +18,12 @@ export default function UploadBox() {
   let formData: FormData = new FormData();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [success, setSuccess] = useState<boolean>(false);
-
+  const [title, setTitle] = useState<string>('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  const [video, setVideo] = useState<string | null>(null);
-  const [thumbnail, setThumbnail] = useState<string | null>(null);
+  const [video, setVideo] = useState<File>();
+  // const [video, setVideo] = useState<string>('');
+  // const [thumbnail, setThumbnail] = useState<string | null>(null);
   const [description, setDescription] = useState<string>('');
   const [isFormVisible, setFormVisible] = useState<boolean>(false);
 
@@ -34,42 +36,53 @@ export default function UploadBox() {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
   
     if (event.target.files && event.target.files.length > 0) {
-      const file = event.target.files?.[0];
+      const file = event.target.files[0];
 
-      setVideo(URL.createObjectURL(file));
-      generateThumbnail(file);
+      setVideo(file);
+      // generateThumbnail(file);
       setSelectedFile(file || null);   
     }  
   };
 
-  const generateThumbnail = (videoFile: File) => {
-    const videoElement = document.createElement('video');
-    videoElement.src = URL.createObjectURL(videoFile);
+  // const generateThumbnail = (videoFile: File) => {
+  //   const videoElement = document.createElement('video');
+  //   videoElement.src = URL.createObjectURL(videoFile);
 
-    videoElement.addEventListener('loadeddata', () => {
-      const canvas = document.createElement('canvas');
-      canvas.width = videoElement.videoWidth;
-      canvas.height = videoElement.videoHeight;
-      const context = canvas.getContext('2d');
+  //   videoElement.addEventListener('loadeddata', () => {
+  //     const canvas = document.createElement('canvas');
+  //     canvas.width = videoElement.videoWidth;
+  //     canvas.height = videoElement.videoHeight;
+  //     const context = canvas.getContext('2d');
 
-      if (context) {
-        context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
-        const thumbnailUrl = canvas.toDataURL();
-        setThumbnail(thumbnailUrl);
-      }
-    });
-  };
+  //     if (context) {
+  //       context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+  //       const thumbnailUrl = canvas.toDataURL();
+  //       setThumbnail(thumbnailUrl);
+  //     }
+  //   });
+  // };
 
   const handleUpload = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (selectedFile) {
-
+      
       formData.append('file', selectedFile);
       setSelectedFiles((prevSelectedFiles) => [...prevSelectedFiles, selectedFile]);
     }
     
     // server로 비디오 파일 업로드 요청 보내기
+    
+    try {
+      console.log(video);
+      if (video){
+          const response: {result: boolean} = await uploadVideo(video, title, description, lecture, year,semester)
+      }
+          
+    } catch (error){
+      console.error("error")
+    }
 
+    
     console.log("useState selectedfile : ", selectedFile);
     
     setSuccess(true);
@@ -88,6 +101,10 @@ export default function UploadBox() {
     setDescription(event.target.value)
   }
 
+  const handleTitleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setTitle(event.target.value)
+  }
+
 
   return (
     <div className='uploadBoxMain'>
@@ -96,7 +113,9 @@ export default function UploadBox() {
       )}
       {isFormVisible && (
         <form onSubmit={handleUpload}>
+          
           <input type="file" accept="video/*" onChange={handleFileChange} />
+          <textarea value={title} onChange={handleTitleChange} placeholder="Enter video title"/>
           <textarea
             value={description}
             onChange={handleDescriptionChange}
