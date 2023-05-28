@@ -20,9 +20,8 @@ export default function UploadMain({getLectureData, getVideoData}:MyProps) {
     <div className='videoUploadMain'>
 
       
-      <SearchBox getLectureData={getLectureData} />
-  
-      <VideoBox getVideoData={getVideoData} />
+      <SearchBox getLectureData={getLectureData} />  
+      {/* <VideoBox getVideoData={getVideoData} /> */}
       <UploadBox/>
       
 

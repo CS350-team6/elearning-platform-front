@@ -7,12 +7,18 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useRouter } from 'next/navigation';
+import AccountMenu from './AccountMenu';
+import SearchBar from './SearchBar';
 
 export default function Navbar() {
   const router = useRouter();
+  const handleSearch = (query: string) => {
+    // Perform search functionality here
+    console.log('Search query:', query);
+  };
 
   return (
-    <Box sx={{ flexGrow: 1, bgcolor: "gray" }}>
+    <Box sx={{ bgcolor: "gray" }}>
         <Toolbar>
           <IconButton
             size="large"
@@ -23,10 +29,16 @@ export default function Navbar() {
           >
             <MenuIcon />
           </IconButton>
-          <Button color="inherit" onClick={() => router.push("/home")} variant="text" sx={{ mr : 120}} style ={{ fontSize: '20px'}}> Efficient E-learning</Button>
+
+          <Box sx={{flexGrow: 1}}>
+            <Button color="inherit" onClick={() => router.push("/welcome")} variant="text" sx={{ mr : 10}} style ={{ fontSize: '20px'}}> Efficient E-learning</Button>
+          </Box>
+
+          <SearchBar onSearch={handleSearch}/>
+          <AccountMenu />
+
           <Button color="inherit" onClick={() => router.push("/register")} variant="outlined" sx={{ margin:2 }}>Register</Button>
           <Button color="inherit" onClick={() => router.push("/login")} variant="outlined">Login</Button>
-
         </Toolbar>
     </Box>
   );
