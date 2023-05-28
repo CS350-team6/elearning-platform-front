@@ -23,7 +23,7 @@ export default function Navbar() {
           >
             <MenuIcon />
           </IconButton>
-          <Button color="inherit" onClick={() => router.push("/home")} variant="text" sx={{ mr : 120}} style ={{ fontSize: '20px'}}> Efficient E-learning</Button>
+          <Button color="inherit" onClick={() => router.push("/welcome")} variant="text" sx={{ mr : 120}} style ={{ fontSize: '20px'}}> Efficient E-learning</Button>
           <Button color="inherit" onClick={() => router.push("/register")} variant="outlined" sx={{ margin:2 }}>Register</Button>
           <Button color="inherit" onClick={() => router.push("/login")} variant="outlined">Login</Button>
 
