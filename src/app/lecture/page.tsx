@@ -29,31 +29,31 @@ const playlist = {
     videos: [
         {
             id: "1",
-            title: "Introduction to Software Engineering",
+            title: "Introduction",
             thumbnail: "https://dj25xpdwcrupf.cloudfront.net/software-engineering.jpeg",
             url: "https://dj25xpdwcrupf.cloudfront.net/math_lecture4.mp4",
         },
         {
             id: "2",
-            title: "Introduction to Software Engineering",
+            title: "Creational Patterns: Factory",
             thumbnail: "https://dj25xpdwcrupf.cloudfront.net/software-engineering.jpeg",
             url: "https://dj25xpdwcrupf.cloudfront.net/math_lecture4.mp4",
         },
         {
             id: "3",
-            title: "Introduction to Software Engineering",
+            title: "Creational Patterns: Singleton",
             thumbnail: "https://dj25xpdwcrupf.cloudfront.net/software-engineering.jpeg",
             url: "https://dj25xpdwcrupf.cloudfront.net/math_lecture4.mp4",
         },
         {
             id: "4",
-            title: "Introduction to Software Engineering",
+            title: "Structural Patterns: Adapter",
             thumbnail: "https://dj25xpdwcrupf.cloudfront.net/software-engineering.jpeg",
             url: "https://dj25xpdwcrupf.cloudfront.net/math_lecture4.mp4",
         },
         {
             id: "5",
-            title: "Introduction to Software Engineering",
+            title: "Structural Patterns: Decorator",
             thumbnail: "https://dj25xpdwcrupf.cloudfront.net/software-engineering.jpeg",
             url: "https://dj25xpdwcrupf.cloudfront.net/math_lecture4.mp4",
         },
@@ -98,7 +98,7 @@ const PlaylistPage: React.FC<PlaylistPageProps> = ({ playlistId }) => {
     <Container maxWidth="lg" sx={{ py: 8 }}>
       <Grid container spacing={4}>
         <Grid item xs={12} md={8}>
-          <img src={playlist.thumbnail} alt={playlist.title} style={{ width: '100%', borderRadius: '4px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }} />
+          <img src={playlist.thumbnail} alt={playlist.title} style={{ width: '80%', borderRadius: '4px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }} />
           <Typography variant="h5" sx={{ mt: 2 }}>{playlist.title}</Typography>
           <Typography variant="subtitle1" sx={{ mt: 1 }}>Instructor: {playlist.instructor}</Typography>
           <Typography variant="body1" sx={{ mt: 2 }}>{playlist.description}</Typography>
