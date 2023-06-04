@@ -13,7 +13,10 @@ interface Playlist {
 }
 
 import { useEffect, useState } from 'react';
-import Link from '@mui/material/Link';
+import { Container, Grid, Typography, Button, Card, CardMedia, CardContent } from '@mui/material';
+import { useRouter } from 'next/navigation';
+
+
 interface PlaylistPageProps {
   playlistId: string;
 }
@@ -21,61 +24,46 @@ interface PlaylistPageProps {
 const playlist = {
     id: "1",
     title: "Software Design Patterns",
+    description: "Learn about software design patterns in this course.",
     instructor: "Instructor #1",
     thumbnail: "https://dj25xpdwcrupf.cloudfront.net/design-patterns-logo-2.png",
     videos: [
         {
             id: "1",
-            title: "Introduction to Software Engineering",
+            title: "Introduction",
             thumbnail: "https://dj25xpdwcrupf.cloudfront.net/software-engineering.jpeg",
-            url: "https://dj25xpdwcrupf.cloudfront.net/math_lecture4_AnQZf9p.mov",
+            url: "https://dj25xpdwcrupf.cloudfront.net/math_lecture4.mp4",
         },
         {
             id: "2",
-            title: "Introduction to Software Engineering",
+            title: "Creational Patterns: Factory",
             thumbnail: "https://dj25xpdwcrupf.cloudfront.net/software-engineering.jpeg",
-            url: "https://dj25xpdwcrupf.cloudfront.net/math_lecture4_AnQZf9p.mov",
+            url: "https://dj25xpdwcrupf.cloudfront.net/math_lecture4.mp4",
         },
         {
             id: "3",
-            title: "Introduction to Software Engineering",
+            title: "Creational Patterns: Singleton",
             thumbnail: "https://dj25xpdwcrupf.cloudfront.net/software-engineering.jpeg",
-            url: "https://dj25xpdwcrupf.cloudfront.net/math_lecture4_AnQZf9p.mov",
+            url: "https://dj25xpdwcrupf.cloudfront.net/math_lecture4.mp4",
         },
         {
             id: "4",
-            title: "Introduction to Software Engineering",
+            title: "Structural Patterns: Adapter",
             thumbnail: "https://dj25xpdwcrupf.cloudfront.net/software-engineering.jpeg",
-            url: "https://dj25xpdwcrupf.cloudfront.net/math_lecture4_AnQZf9p.mov",
+            url: "https://dj25xpdwcrupf.cloudfront.net/math_lecture4.mp4",
         },
         {
             id: "5",
-            title: "Introduction to Software Engineering",
+            title: "Structural Patterns: Decorator",
             thumbnail: "https://dj25xpdwcrupf.cloudfront.net/software-engineering.jpeg",
-            url: "https://dj25xpdwcrupf.cloudfront.net/math_lecture4_AnQZf9p.mov",
+            url: "https://dj25xpdwcrupf.cloudfront.net/math_lecture4.mp4",
         },
     ]
 }
 
 const PlaylistPage: React.FC<PlaylistPageProps> = ({ playlistId }) => {
-//   const [playlist, setPlaylist] = useState<Playlist | null>(null);
-//   const p
+  const router = useRouter();
   const [bookmarkedVideos, setBookmarkedVideos] = useState<string[]>([]);
-
-//   useEffect(() => {
-//     // Fetch the playlist data from an API or any data source
-//     const fetchPlaylist = async () => {
-//       try {
-//         const response = await fetch(`/api/playlists/${playlistId}`);
-//         const playlistData = await response.json();
-//         setPlaylist(playlistData);
-//       } catch (error) {
-//         console.error('Error fetching playlist:', error);
-//       }
-//     };
-
-//     fetchPlaylist();
-//   }, [playlistId]);
 
   const toggleBookmark = (videoId: string) => {
     setBookmarkedVideos((prevBookmarkedVideos) => {
@@ -92,34 +80,34 @@ const PlaylistPage: React.FC<PlaylistPageProps> = ({ playlistId }) => {
   }
 
   return (
-    <div className="container mx-auto flex py-8">
-        <div className="w-2/4 pr-8">
-            <img src={playlist.thumbnail} alt={playlist.title} className="w-full rounded shadow" />
-            <h1 className="text-3xl font-bold mb-4">{playlist.title}</h1>
-        </div>
-      
-      
-        <div className="w-1/4">
-        <Link href="/lecture/software-engineering">
+    <Container maxWidth="lg" sx={{ py: 8 }}>
+      <Grid container spacing={4}>
+        <Grid item xs={12} md={8}>
+          <img src={playlist.thumbnail} alt={playlist.title} style={{ width: '80%', borderRadius: '4px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }} />
+          <Typography variant="h5" sx={{ mt: 2 }}>{playlist.title}</Typography>
+          <Typography variant="subtitle1" sx={{ mt: 1 }}>Instructor: {playlist.instructor}</Typography>
+          <Typography variant="body1" sx={{ mt: 2 }}>{playlist.description}</Typography>
+          <Button variant="outlined" color="primary" sx={{ mt: 4 }}>Play All</Button>
+        </Grid>
+        <Grid item xs={12} md={4}>
           {playlist.videos.map((video) => (
-            <div key={video.id} className="bg-white p-4 rounded shadow mb-4">
-              <img src={video.thumbnail} alt={video.title} className="w-full mb-4 rounded" />
-              <h2 className="text-lg font-bold mb-2">{video.title}</h2>
-              <button
-                className={`px-4 py-2 rounded ${
-                  bookmarkedVideos.includes(video.id) ? 'bg-red-500 text-white' : 'bg-blue-500 text-white'
-                }`}
-                onClick={() => toggleBookmark(video.id)}
-              >
-                {bookmarkedVideos.includes(video.id) ? 'Unbookmark' : 'Bookmark'}
-              </button>
-            </div>
+            <Card key={video.id} sx={{ mb: 4 }} onClick={() => router.push("/lecture/1")}>
+                <CardMedia component="img" src={video.thumbnail} alt={video.title} />
+                <CardContent>
+                <Typography variant="h5" sx={{ mb: 2 }}>{video.title}</Typography>
+                <Button
+                    variant={bookmarkedVideos.includes(video.id) ? 'outlined' : 'outlined'}
+                    color={bookmarkedVideos.includes(video.id) ? 'error' : 'primary'}
+                    onClick={() => toggleBookmark(video.id)}
+                >
+                    {bookmarkedVideos.includes(video.id) ? 'Unbookmark' : 'Bookmark'}
+                </Button>
+                </CardContent>
+            </Card>
           ))}
-        </Link>
-        </div>
-      
-
-    </div>
+        </Grid>
+      </Grid>
+    </Container>
   );
 };
 
