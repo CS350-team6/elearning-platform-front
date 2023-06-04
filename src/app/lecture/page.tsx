@@ -99,7 +99,7 @@ const PlaylistPage: React.FC<PlaylistPageProps> = ({ playlistId }) => {
         </div>
       
       <div className="w-1/4">
-        
+
         {playlist.videos.map((video) => (
           <div key={video.id} className="bg-white p-4 rounded shadow mb-4">
             <img src={video.thumbnail} alt={video.title} className="w-full mb-4 rounded" />
