@@ -24,12 +24,9 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   return (
     <form onSubmit={handleSubmit}>
       <TextField 
-        InputProps={{
-          style: { color: inputColor },
-        }}
-        InputLabelProps={{
-          style: { color: labelColor },
-        }}
+        InputProps={{ style: { color: inputColor } }}
+        InputLabelProps={{ style: { color: labelColor } }}
+        style={{ width: '700px'}}
         sx={{mr:2}}
         label="Search"
         variant="outlined"
