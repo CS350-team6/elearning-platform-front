@@ -15,7 +15,7 @@ const AccountMenu: React.FC = () => {
 
   return (
     <div>
-      <Button variant="outlined" color="inherit" onClick={handleMenu}>
+      <Button sx={{ml:3}} variant="outlined" color="inherit" onClick={handleMenu}>
         Account
       </Button>
       <Menu
