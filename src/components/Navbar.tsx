@@ -59,7 +59,6 @@ export default function Navbar() {
                   />
             </FormControl> 
           </Box>
-
           <AccountMenu />
 
           <Button color="inherit" onClick={() => router.push("/register")} variant="outlined" sx={{ margin:2 }}>Register</Button>
