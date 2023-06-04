@@ -111,7 +111,7 @@ const PlaylistPage: React.FC<PlaylistPageProps> = ({ playlistId }) => {
                 <CardContent>
                 <Typography variant="h5" sx={{ mb: 2 }}>{video.title}</Typography>
                 <Button
-                    variant={bookmarkedVideos.includes(video.id) ? 'contained' : 'outlined'}
+                    variant={bookmarkedVideos.includes(video.id) ? 'outlined' : 'outlined'}
                     color={bookmarkedVideos.includes(video.id) ? 'error' : 'primary'}
                     onClick={() => toggleBookmark(video.id)}
                 >
