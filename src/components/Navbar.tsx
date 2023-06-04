@@ -28,7 +28,7 @@ export default function Navbar() {
 
       // Reset the input value
       setInputValue('');
-  }
+  }};
 
   return (
     <Box sx={{ bgcolor: "gray" }}>
