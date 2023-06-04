@@ -102,7 +102,7 @@ const PlaylistPage: React.FC<PlaylistPageProps> = ({ playlistId }) => {
           <Typography variant="h5" sx={{ mt: 2 }}>{playlist.title}</Typography>
           <Typography variant="subtitle1" sx={{ mt: 1 }}>Instructor: {playlist.instructor}</Typography>
           <Typography variant="body1" sx={{ mt: 2 }}>{playlist.description}</Typography>
-          <Button variant="contained" color="primary" sx={{ mt: 4 }}>Play All</Button>
+          <Button variant="outlined" color="primary" sx={{ mt: 4 }}>Play All</Button>
         </Grid>
         <Grid item xs={12} md={4}>
           {playlist.videos.map((video) => (
