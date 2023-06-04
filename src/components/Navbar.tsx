@@ -28,8 +28,7 @@ export default function Navbar() {
 
       // Reset the input value
       setInputValue('');
-    }
-  };
+  }
 
   return (
     <Box sx={{ bgcolor: "gray" }}>
@@ -59,7 +58,7 @@ export default function Navbar() {
                   />
             </FormControl> 
           </Box>
-
+      
           <AccountMenu />
 
           <Button color="inherit" onClick={() => router.push("/register")} variant="outlined" sx={{ margin:2 }}>Register</Button>
