@@ -2,7 +2,7 @@
 import "./upload.css"
 
 import VideoBox from './videoBox';
-import UploadBox from './uploadBox';
+// import UploadBox from './uploadBox';
 import SearchBox from './searchBox';
 
 import React, { useState, useRef, useEffect } from 'react';
@@ -18,7 +18,7 @@ export default function UploadMain() {
       <SearchBox />
   
       <VideoBox  />
-      <UploadBox />
+      {/* <UploadBox /> */}
       
 
       
