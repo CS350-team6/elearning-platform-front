@@ -13,7 +13,7 @@ interface Playlist {
 }
 
 import { useEffect, useState } from 'react';
-
+import Link from '@mui/material/Link';
 interface PlaylistPageProps {
   playlistId: string;
 }
@@ -98,23 +98,27 @@ const PlaylistPage: React.FC<PlaylistPageProps> = ({ playlistId }) => {
             <h1 className="text-3xl font-bold mb-4">{playlist.title}</h1>
         </div>
       
-      <div className="w-1/4">
-        
-        {playlist.videos.map((video) => (
-          <div key={video.id} className="bg-white p-4 rounded shadow mb-4">
-            <img src={video.thumbnail} alt={video.title} className="w-full mb-4 rounded" />
-            <h2 className="text-lg font-bold mb-2">{video.title}</h2>
-            <button
-              className={`px-4 py-2 rounded ${
-                bookmarkedVideos.includes(video.id) ? 'bg-red-500 text-white' : 'bg-blue-500 text-white'
-              }`}
-              onClick={() => toggleBookmark(video.id)}
-            >
-              {bookmarkedVideos.includes(video.id) ? 'Unbookmark' : 'Bookmark'}
-            </button>
-          </div>
-        ))}
-      </div>
+      
+        <div className="w-1/4">
+        <Link href="/lecture/software-engineering">
+          {playlist.videos.map((video) => (
+            <div key={video.id} className="bg-white p-4 rounded shadow mb-4">
+              <img src={video.thumbnail} alt={video.title} className="w-full mb-4 rounded" />
+              <h2 className="text-lg font-bold mb-2">{video.title}</h2>
+              <button
+                className={`px-4 py-2 rounded ${
+                  bookmarkedVideos.includes(video.id) ? 'bg-red-500 text-white' : 'bg-blue-500 text-white'
+                }`}
+                onClick={() => toggleBookmark(video.id)}
+              >
+                {bookmarkedVideos.includes(video.id) ? 'Unbookmark' : 'Bookmark'}
+              </button>
+            </div>
+          ))}
+        </Link>
+        </div>
+      
+
     </div>
   );
 };

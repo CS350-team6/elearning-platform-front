@@ -73,6 +73,7 @@ const VideoBox = () => {
           {videoSource && videoSource.map((video) => (
             <Grid item xs={8} sm={4} md={3} key={video.id}>
               <VideoCard
+                id={video.id}
                 title={video.title}
                 thumbnailUrl={video.thumbnailUrl}
                 views={video.views}
