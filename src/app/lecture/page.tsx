@@ -23,6 +23,7 @@ interface PlaylistPageProps {
 const playlist = {
     id: "1",
     title: "Software Design Patterns",
+    description: "Learn about software design patterns in this course.",
     instructor: "Instructor #1",
     thumbnail: "https://dj25xpdwcrupf.cloudfront.net/design-patterns-logo-2.png",
     videos: [
@@ -95,11 +96,16 @@ const PlaylistPage: React.FC<PlaylistPageProps> = ({ playlistId }) => {
 
   return (
     <Container maxWidth="lg" sx={{ py: 8 }}>
-      <Typography variant="h3" sx={{ mb: 4 }}>{playlist.title}</Typography>
       <Grid container spacing={4}>
         <Grid item xs={12} md={4}>
           <Card>
             <CardMedia component="img" src={playlist.thumbnail} alt={playlist.title} />
+            <CardContent>
+              <Typography variant="h5" gutterBottom>{playlist.title}</Typography>
+              <Typography variant="subtitle1" gutterBottom>Instructor: {playlist.instructor}</Typography>
+              <Typography variant="body1" gutterBottom>{playlist.description}</Typography>
+              <Button variant="contained" color="primary" sx={{ mt: 4 }}>Play All</Button>
+            </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} md={8}>
