@@ -30,31 +30,31 @@ const playlist = {
             id: "1",
             title: "Introduction to Software Engineering",
             thumbnail: "https://dj25xpdwcrupf.cloudfront.net/software-engineering.jpeg",
-            url: "https://dj25xpdwcrupf.cloudfront.net/math_lecture4_AnQZf9p.mov",
+            url: "https://dj25xpdwcrupf.cloudfront.net/math_lecture4.mp4",
         },
         {
             id: "2",
             title: "Introduction to Software Engineering",
             thumbnail: "https://dj25xpdwcrupf.cloudfront.net/software-engineering.jpeg",
-            url: "https://dj25xpdwcrupf.cloudfront.net/math_lecture4_AnQZf9p.mov",
+            url: "https://dj25xpdwcrupf.cloudfront.net/math_lecture4.mp4",
         },
         {
             id: "3",
             title: "Introduction to Software Engineering",
             thumbnail: "https://dj25xpdwcrupf.cloudfront.net/software-engineering.jpeg",
-            url: "https://dj25xpdwcrupf.cloudfront.net/math_lecture4_AnQZf9p.mov",
+            url: "https://dj25xpdwcrupf.cloudfront.net/math_lecture4.mp4",
         },
         {
             id: "4",
             title: "Introduction to Software Engineering",
             thumbnail: "https://dj25xpdwcrupf.cloudfront.net/software-engineering.jpeg",
-            url: "https://dj25xpdwcrupf.cloudfront.net/math_lecture4_AnQZf9p.mov",
+            url: "https://dj25xpdwcrupf.cloudfront.net/math_lecture4.mp4",
         },
         {
             id: "5",
             title: "Introduction to Software Engineering",
             thumbnail: "https://dj25xpdwcrupf.cloudfront.net/software-engineering.jpeg",
-            url: "https://dj25xpdwcrupf.cloudfront.net/math_lecture4_AnQZf9p.mov",
+            url: "https://dj25xpdwcrupf.cloudfront.net/math_lecture4.mp4",
         },
     ]
 }
