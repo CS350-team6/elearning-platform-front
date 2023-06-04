@@ -15,29 +15,33 @@ const Home: React.FC = () => {
   const videos = [
     {
       id: 1,
-      title: 'Video 1',
-      thumbnailUrl: 'https://static.vecteezy.com/system/resources/previews/003/399/771/original/youtube-icon-editorial-free-vector.jpg', // thumbnail
+      title: 'Engineering Math: Differential Equations and Linear Algebra',
+      instructor: 'Gilbert Strang',
+      thumbnailUrl: 'https://dj25xpdwcrupf.cloudfront.net/advanced_math.jpeg',
       views: 1000,
       duration: '5:30',
     },
     {
       id: 2,
-      title: 'Video 2',
-      thumbnailUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhIJEDvdETH3nroo6h9UQKkvq472n1b4XWiU3QN-EHsHzQRj1AzWqpjpsgVGKMBsZO71o&usqp=CAU', // thumbnail
+      title: 'Introduction to Software Engineering',
+      instructor: 'Nancy Leveson',
+      thumbnailUrl: 'https://dj25xpdwcrupf.cloudfront.net/software-engineering.jpeg',
       views: 2000,
       duration: '7:45',
     },
     {
         id: 3,
-        title: 'Video 3',
-        thumbnailUrl: 'https://static.vecteezy.com/system/resources/previews/003/399/771/original/youtube-icon-editorial-free-vector.jpg', // thumbnail
+        title: 'Introduction to Topology',
+        instructor: 'James Munkres',
+        thumbnailUrl: 'https://dj25xpdwcrupf.cloudfront.net/Topology.jpeg',
         views: 1000,
         duration: '5:30',
       },
       {
         id: 4,
-        title: 'Video 4',
-        thumbnailUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhIJEDvdETH3nroo6h9UQKkvq472n1b4XWiU3QN-EHsHzQRj1AzWqpjpsgVGKMBsZO71o&usqp=CAU', // thumbnail
+        title: 'Foundations of Software Engineering',
+        instructor: 'Kevin Amaratunga',
+        thumbnailUrl: 'https://dj25xpdwcrupf.cloudfront.net/software_engineering.jpeg',
         views: 1000,
         duration: '5:30',
       },
@@ -52,6 +56,7 @@ const Home: React.FC = () => {
           {videos.map((video) => (
             <Grid item xs={12} sm={6} md={4} key={video.id}>
               <VideoCard
+                id={video.id}
                 title={video.title}
                 thumbnailUrl={video.thumbnailUrl}
                 views={video.views}
