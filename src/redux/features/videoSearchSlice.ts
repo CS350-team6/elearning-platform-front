@@ -5,14 +5,16 @@ interface VideoSearchState {
   lectureList: string[];
   lecture: string;
   year:string;
-  semester:string
+  semester:string,
+  videoList: string[]
 }
 
 const initialState: VideoSearchState = {
   lectureList: [],
   lecture: "",
   year:"",
-  semester:""
+  semester:"",
+  videoList: []
 };
 
 
@@ -32,10 +34,13 @@ export const videoSearchSlice = createSlice({
     },
     setSemester : (state, action: PayloadAction<string>)=>{
       state.semester = action.payload
+    },
+    setVideoList : (state, action: PayloadAction<string[]>)=>{
+      state.videoList = action.payload
     }
     
   },
 });
 
-export const { reset, setLectureList, setLecture, setYear, setSemester } = videoSearchSlice.actions;
+export const { reset, setLectureList, setLecture, setYear, setSemester, setVideoList } = videoSearchSlice.actions;
 export default videoSearchSlice.reducer;
