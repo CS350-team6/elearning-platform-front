@@ -7,7 +7,7 @@ export default function Login() {
 
     try {
       // https://elearning-back.fly.dev/
-    const response = await axios.post('https://elearning-back.fly.dev/user_account/login/', {
+    const response = await axios.post('http://127.0.0.1:8000/user_account/login/', {
       "email": id,
       "password": pw,
     }, {

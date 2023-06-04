@@ -1,150 +1,128 @@
 'use client';
 import React, { useState, useRef, useEffect} from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { setLectureList, setYear, setLecture, setSemester } from '@/redux/features/videoSearchSlice';
-
-interface MyProps{
-  getLectureData: (id: string, pw: string, title: string, desc: string) => Promise<{ result:boolean, title: string[] }>;
-}
+import { setLectureList} from '@/redux/features/videoSearchSlice';
+import { useUploadVideoMutation } from '@/redux/services/uploadApi';
+import { Button, TextField, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
 export default function UploadBox() {
-  const semester = useAppSelector((state) => state.searchReducer.semester);
-  const year = useAppSelector((state) => state.searchReducer.year);
-  const lecture = useAppSelector((state) => state.searchReducer.lecture);
+  const [semester, setSemester] = useState<string>('');
+  const [year, setYear] = useState<string>('');
+  const [lecture, setLecture] = useState<string>('');
   const lectureList = useAppSelector((state) => state.searchReducer.lectureList);
   const dispatch = useAppDispatch();
 
-  let formData: FormData = new FormData();
-  const inputRef = useRef<HTMLInputElement | null>(null);
-  const [success, setSuccess] = useState<boolean>(false);
-
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  const [video, setVideo] = useState<string | null>(null);
-  const [thumbnail, setThumbnail] = useState<string | null>(null);
+  const [uploadVideo, { isLoading, error }] = useUploadVideoMutation();
+  const [selectedFile, setSelectedFile] = useState<File>();
+  
+  const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [isFormVisible, setFormVisible] = useState<boolean>(false);
 
-  
-  
-  const handleUploadClick = () => {
-    setFormVisible(true);
-  };
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  
-    if (event.target.files && event.target.files.length > 0) {
-      const file = event.target.files?.[0];
-
-      setVideo(URL.createObjectURL(file));
-      generateThumbnail(file);
-      setSelectedFile(file || null);   
-    }  
-  };
-
-  const generateThumbnail = (videoFile: File) => {
-    const videoElement = document.createElement('video');
-    videoElement.src = URL.createObjectURL(videoFile);
-
-    videoElement.addEventListener('loadeddata', () => {
-      const canvas = document.createElement('canvas');
-      canvas.width = videoElement.videoWidth;
-      canvas.height = videoElement.videoHeight;
-      const context = canvas.getContext('2d');
-
-      if (context) {
-        context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
-        const thumbnailUrl = canvas.toDataURL();
-        setThumbnail(thumbnailUrl);
-      }
-    });
-  };
-
   const handleUpload = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    // upload 서버 통신 -> upload URL 찾기
+    // thumbnail 만들기
+
     if (selectedFile) {
-
-      formData.append('file', selectedFile);
-      setSelectedFiles((prevSelectedFiles) => [...prevSelectedFiles, selectedFile]);
+      const instructor = "hello";
+      const response = await uploadVideo({file: selectedFile, title });
+      console.log("?",response);
     }
-    
-    // server로 비디오 파일 업로드 요청 보내기
 
-    console.log("useState selectedfile : ", selectedFile);
-    
-    setSuccess(true);
-    setSelectedFile(null);
-    if (inputRef.current) {
-      inputRef.current.value = "";
-    }
-    dispatch(setYear(''));
-    dispatch(setSemester(''));
-    dispatch(setLecture(''));
     setFormVisible(false);
-    setDescription('')
   };
 
-  const handleDescriptionChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setDescription(event.target.value)
-  }
-
+ 
 
   return (
     <div className='uploadBoxMain'>
-      {!isFormVisible &&(
-        <button onClick={() => setFormVisible(true)}> New Video </button>
+      {!isFormVisible && (
+        <Button variant="contained" color="primary" onClick={() => setFormVisible(true)}>
+          New Video
+        </Button>
       )}
       {isFormVisible && (
         <form onSubmit={handleUpload}>
-          <input type="file" accept="video/*" onChange={handleFileChange} />
-          <textarea
-            value={description}
-            onChange={handleDescriptionChange}
-            placeholder="Enter video description"
+          <input
+          
+            id="upload-file"
+            type="file"
+            accept="video/*"
+            onChange={(e) => setSelectedFile(e.target.files?.[0])}
           />
-        <br/>
-        <label htmlFor="year">year:</label>
-        <select id="year" name="year" value={year} onChange={(e) => dispatch(setYear(e.target.value))}>
-          <option value="">Select a year</option>
-          <option value="2020">2020</option>
-          <option value="2021">2021</option>
-          <option value="2022">2022</option>
-          <option value="2023">2023</option>
-        </select>
-        <br />
-        <label htmlFor="semester">semester:</label>
-        <select id="semester" value={semester} onChange={(e) => dispatch(setSemester(e.target.value))}>
-          <option value="">Select a semester</option>
-          <option value="1">Spring</option>
-          <option value="2">Summer</option>
-          <option value="3">Fall</option>
-          <option value="1">Winter</option>
-        </select>
-        <br />
-        <label htmlFor="lecture">lecture:</label>
-        <select id="lecture" value={lecture} onChange={(e) => dispatch(setLecture(e.target.value))}>
-          <option value="">Select a Lecture</option>
-          {lectureList.map((lecture) => (
-            <option key={lecture} value={lecture}>
-              {lecture}
-            </option>
-          ))}
-        </select>
+          <TextField
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Enter video title"
+            variant="outlined"
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Enter video description"
+            variant="outlined"
+            fullWidth
+            multiline
+            rows={4}
+            margin="normal"
+          />
 
-          <button type="submit">Submit</button>
+          <FormControl variant="filled" fullWidth margin="normal">
+            <InputLabel id="year-label">Year</InputLabel>
+            <Select
+              labelId="year-label"
+              id="year"
+              value={year}
+              onChange={(e) => setYear(e.target.value)}
+            >
+              <MenuItem value=""><em>Select a year</em></MenuItem>
+              <MenuItem value={"2020"}>2020</MenuItem>
+              <MenuItem value={"2021"}>2021</MenuItem>
+              <MenuItem value={"2022"}>2022</MenuItem>
+              <MenuItem value={"2023"}>2023</MenuItem>
+            </Select>
+          </FormControl>
+
+          <FormControl variant="filled" fullWidth margin="normal">
+            <InputLabel id="semester-label">Semester</InputLabel>
+            <Select
+              labelId="semester-label"
+              id="semester"
+              value={semester}
+              onChange={(e) => setSemester(e.target.value)}
+            >
+              <MenuItem value=""><em>Select a semester</em></MenuItem>
+              <MenuItem value={"1"}>Spring</MenuItem>
+              <MenuItem value={"2"}>Summer</MenuItem>
+              <MenuItem value={"3"}>Fall</MenuItem>
+              <MenuItem value={"4"}>Winter</MenuItem>
+            </Select>
+          </FormControl>
+
+          <FormControl variant="filled" fullWidth margin="normal">
+            <InputLabel id="lecture-label">Lecture</InputLabel>
+            <Select
+              labelId="lecture-label"
+              id="lecture"
+              value={lecture}
+              onChange={(e) => setLecture(e.target.value)}
+            >
+              {lectureList.map((lecture) => (
+                <MenuItem key={lecture} value={lecture}>
+                  {lecture}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          <Button variant="contained" color="primary" type="submit" style={{ marginTop: '15px' }}>
+            Upload
+          </Button>
         </form>
       )}
-      {/* {
-        success &&
-        selectedFiles.map((file, index) => (
-          <div key={index}>
-            <p>Uploaded File: {file.name}</p>
-            {video && <video src={video} controls style={{ width: '33.33%', height: '33.33%' }}/>}
-            {thumbnail && <img src={thumbnail} alt="Thumbnail" style={{ width: '33.33%', height: '33.33%' }}/>}
-          </div>
-        ))
-      } */}
-    
     </div>
-  )
+  );
 }

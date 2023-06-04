@@ -1,81 +1,90 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { setLectureList, setYear, setLecture, setSemester } from '@/redux/features/videoSearchSlice';
+import { setLectureList, setYear, setLecture, setSemester, setVideoList } from '@/redux/features/videoSearchSlice';
+import { useGetLectureSearchResultsQuery, useGetVideoSearchResultsQuery } from '@/redux/services/searchApi';
+import { styled } from '@mui/system';
+import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
-interface MyProps{
-  getLectureData: (id: string, pw: string, title: string, desc: string) => Promise<{ result:boolean, title: string[] }>;
-  children?: React.ReactNode;
-}
+const StyledFormControl = styled(FormControl)(({ theme }) => ({
+  margin: theme.spacing(1),
+  minWidth: 120,
+}));
 
-const SearchBox = ({getLectureData}:MyProps ) => {
+const SearchBox = () => {
   const semester = useAppSelector((state) => state.searchReducer.semester);
   const year = useAppSelector((state) => state.searchReducer.year);
   const lecture = useAppSelector((state) => state.searchReducer.lecture);
   const lectureList = useAppSelector((state) => state.searchReducer.lectureList);
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data_ = await getLectureData("1", "2", "3", "4");
-        
-        dispatch(setLectureList(data_.title))
-       
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        
-      }
-    };
+  const { data:lectureData, isLoading:lectureLoading, error:lectureError, refetch:lectureRefetch} = useGetLectureSearchResultsQuery({year:year, semester:semester});
   
-    fetchData();
-  }, []);
 
-  const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    // 선택된 정보를 이용하여 원하는 동작 수행
-    console.log('Year:', year);
-    console.log('Semester:', semester);
-    console.log('lecture', lecture)
-    dispatch(setYear(''));
-    dispatch(setSemester(''));
-    dispatch(setLecture(''));
-  };
 
+  // lecture list 불러오기
+  const handleClickLectureSearch = () =>{
+    lectureRefetch();
+    if (lectureData){
+      dispatch(setLectureList(lectureData.title)); 
+    }
+  }
+
+
+  
   return (
-    <div className='searchBoxMain'>
-      <form onSubmit={handleSearchSubmit}>
-        <label htmlFor="year">year:</label>
-        <select id="year" name="year" value={year} onChange={(e) => dispatch(setYear(e.target.value))}>
-          <option value="">Select a year</option>
-          <option value="2020">2020</option>
-          <option value="2021">2021</option>
-          <option value="2022">2022</option>
-          <option value="2023">2023</option>
-        </select>
-        <br />
-        <label htmlFor="semester">semester:</label>
-        <select id="semester" value={semester} onChange={(e) => dispatch(setSemester(e.target.value))}>
-          <option value="">Select a semester</option>
-          <option value="1">Spring</option>
-          <option value="2">Summer</option>
-          <option value="3">Fall</option>
-          <option value="1">Winter</option>
-        </select>
-        <br />
-        <label htmlFor="lecture">lecture:</label>
-        <select id="lecture" value={lecture} onChange={(e) => dispatch(setLecture(e.target.value))}>
-          <option value="">Select a Lecture</option>
-          {lectureList.map((lecture) => (
-            <option key={lecture} value={lecture}>
-              {lecture}
-            </option>
-          ))}
-        </select>
-        <button type="submit">Search</button>
-      
+    <div className='searchBoxMain' style={{width : '110px'}}>
+      <form>
+        <FormControl variant="filled" style={{marginBottom: '15px', width:'100px', marginRight:"5px"}}>
+          <InputLabel id="year-label">Year</InputLabel>
+          <Select
+            labelId="year-label"
+            id="year"
+            value={year}
+            onChange={(e) => dispatch(setYear(e.target.value))}
+          >
+            <MenuItem value=""><em>Select a year</em></MenuItem>
+            <MenuItem value={"2020"}>2020</MenuItem>
+            <MenuItem value={"2021"}>2021</MenuItem>
+            <MenuItem value={"2022"}>2022</MenuItem>
+            <MenuItem value={"2023"}>2023</MenuItem>
+          </Select>
+        </FormControl>
+        <br/>
+        <FormControl variant="filled" style={{marginBottom: '15px', width:'100px', marginRight:"5px"}}>
+          <InputLabel id="semester-label">Semester</InputLabel>
+          <Select
+            labelId="semester-label"
+            id="semester"
+            value={semester}
+            onChange={(e) => dispatch(setSemester(e.target.value))}
+          >
+            <MenuItem value=""><em>Select a semester</em></MenuItem>
+            <MenuItem value={"1"}>Spring</MenuItem>
+            <MenuItem value={"2"}>Summer</MenuItem>
+            <MenuItem value={"3"}>Fall</MenuItem>
+            <MenuItem value={"4"}>Winter</MenuItem>
+          </Select>
+        </FormControl>
+        <br/>
+        <FormControl variant="filled" style={{marginBottom: '15px', width:'100px', marginRight:"5px"}}>
+          <InputLabel id="lecture-label">Lecture</InputLabel>
+          <Select
+            labelId="lecture-label"
+            id="lecture"
+            value={lecture}
+            onClick={handleClickLectureSearch}
+            onChange={(e) => dispatch(setLecture(e.target.value))}
+          >
+            <MenuItem value=""><em>Select a Lecture</em></MenuItem>
+            {lectureList.map((lecture, index) => (
+              <MenuItem key={index} value={lecture}>
+                {lecture}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </form>
-        
     </div>
   );
 };

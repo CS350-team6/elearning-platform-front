@@ -9,7 +9,7 @@
 
 @media (min-width: 800px) {
   .videoUploadMain {
-    grid-template-columns: 1fr 2fr 1fr; /* 뷰포트 너비가 600px 이상일 때 3개의 열을 정의 */
+    grid-template-columns: 0.3fr 2fr 0.7fr; /* 뷰포트 너비가 600px 이상일 때 3개의 열을 정의 */
     grid-template-rows: 50px 100px 75px;
 
   }

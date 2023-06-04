@@ -1,51 +1,92 @@
 'use client';
 import React, { useState, useRef, useEffect } from 'react';
-
-
-
-interface MyProps{
-  getVideoData: (lecture: string) => Promise<{ result:boolean, video: string[] }>;
-
-  year: string,
-  semester: string,
-  children?: React.ReactNode;
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { setLectureList, setYear, setLecture, setSemester } from '@/redux/features/videoSearchSlice';
+import { useGetLectureSearchResultsQuery, useGetVideoSearchResultsQuery } from '@/redux/services/searchApi';
+import VideoCard from '../home/VideoCard';
+import { Container, Grid, Typography } from '@mui/material';
+type typeVideoData = {
+  id:number;
+  title:string;
+  thumbnailUrl:string;
+  views:number;
+  duration:string;
 }
 
-const VideoBox = ({getVideoData, year, semester}:MyProps) => {
-  const lecture ="";
-  const videoRef = useRef<HTMLVideoElement | null>(null);
+const VideoBox = () => {
+  const semester = useAppSelector((state) => state.searchReducer.semester);
+  const year = useAppSelector((state) => state.searchReducer.year);
+  const lecture = useAppSelector((state) => state.searchReducer.lecture);
+  const lectureList = useAppSelector((state) => state.searchReducer.lectureList);
+  const dispatch = useAppDispatch();
+
   
-  const [videoSource, setVideoSource] = useState<string[]>([]);
- 
+  const [videoSource, setVideoSource] = useState<typeVideoData[]>([]);
+  const { data:videoData, isLoading:videoLoading, error:videoError, refetch:videoRefetch} = useGetVideoSearchResultsQuery({year:year, semester:semester, lecture:lecture});
+  
+  // video list 불러오기, videodata 형식 지정
   useEffect(() => {
     
-    const fetchData = async () => {
-      try {
-        const response:{result: boolean, video:string[]} = await getVideoData(lecture);
-        console.log("videoBox.tsx : ", response.video);
-        if (response.result) {
-          setVideoSource(response.video);
-          
-        }
-      } catch (error) {
-        console.error("Error fetching video data:", error);
-        
-      }
-    };
-
-    fetchData();
-    console.log("videoBox.tsx line33 : ", videoSource)
+    // videoRefetch();
+    // console.log("videoBox ", videoData);
+    const videoData = [
+      {
+        id: 1,
+        title: 'Video 1',
+        thumbnailUrl: 'https://static.vecteezy.com/system/resources/previews/003/399/771/original/youtube-icon-editorial-free-vector.jpg', // thumbnail
+        views: 1000,
+        duration: '5:30',
+      },
+      {
+        id: 2,
+        title: 'Video 2',
+        thumbnailUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhIJEDvdETH3nroo6h9UQKkvq472n1b4XWiU3QN-EHsHzQRj1AzWqpjpsgVGKMBsZO71o&usqp=CAU', // thumbnail
+        views: 2000,
+        duration: '7:45',
+      },
+      {
+        id: 3,
+        title: 'Video 3',
+        thumbnailUrl: 'https://static.vecteezy.com/system/resources/previews/003/399/771/original/youtube-icon-editorial-free-vector.jpg', // thumbnail
+        views: 1000,
+        duration: '5:30',
+      },
+      {
+        id: 4,
+        title: 'Video 4',
+        thumbnailUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhIJEDvdETH3nroo6h9UQKkvq472n1b4XWiU3QN-EHsHzQRj1AzWqpjpsgVGKMBsZO71o&usqp=CAU', // thumbnail
+        views: 1000,
+        duration: '5:30',
+      },
+    ]
+    if(videoData){
+      setVideoSource(videoData);
+    }  
+    
   }, [ lecture, year, semester]);
 
- 
   return (
     <div className='videoListMain'>
-      {videoSource && videoSource.map((source: string, index: number) => (
-        <video key={index} controls>
-          <source src={source} type="video/mp4" />
-        </video>
-      ))}
+      
+      <Container maxWidth="lg">
+        <Grid container spacing={2}>
+          {videoSource && videoSource.map((video) => (
+            <Grid item xs={8} sm={4} md={3} key={video.id}>
+              <VideoCard
+                title={video.title}
+                thumbnailUrl={video.thumbnailUrl}
+                views={video.views}
+                duration={video.duration}
+              />
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
     </div>
+
+
+  
+
   )
 }
 export default VideoBox;
