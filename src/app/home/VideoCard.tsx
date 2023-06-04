@@ -8,8 +8,10 @@ import {
   Box,
   Grid
 } from '@mui/material';
+import { useRouter } from 'next/navigation';
 
 interface VideoCardProps {
+  id: number;
   title: string;
   thumbnailUrl: string;
   views: number;
@@ -17,14 +19,18 @@ interface VideoCardProps {
 }
 
 const VideoCard: React.FC<VideoCardProps> = ({
+  id,
   title,
   thumbnailUrl,
   views,
   duration,
 }) => {
+    const router = useRouter();
+
     return (
     <Grid container justifyContent="left">
-        <Card>
+        <Card
+          onClick={()=>router.push("/lecture")}>
             <CardMedia 
                 component="img" 
                 image={thumbnailUrl} 
