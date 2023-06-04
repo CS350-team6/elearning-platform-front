@@ -97,31 +97,27 @@ const PlaylistPage: React.FC<PlaylistPageProps> = ({ playlistId }) => {
   return (
     <Container maxWidth="lg" sx={{ py: 8 }}>
       <Grid container spacing={4}>
-        <Grid item xs={12} md={4}>
-          <Card>
-            <CardMedia component="img" src={playlist.thumbnail} alt={playlist.title} />
-            <CardContent>
-              <Typography variant="h5" gutterBottom>{playlist.title}</Typography>
-              <Typography variant="subtitle1" gutterBottom>Instructor: {playlist.instructor}</Typography>
-              <Typography variant="body1" gutterBottom>{playlist.description}</Typography>
-              <Button variant="contained" color="primary" sx={{ mt: 4 }}>Play All</Button>
-            </CardContent>
-          </Card>
-        </Grid>
         <Grid item xs={12} md={8}>
+          <img src={playlist.thumbnail} alt={playlist.title} style={{ width: '100%', borderRadius: '4px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }} />
+          <Typography variant="h5" sx={{ mt: 2 }}>{playlist.title}</Typography>
+          <Typography variant="subtitle1" sx={{ mt: 1 }}>Instructor: {playlist.instructor}</Typography>
+          <Typography variant="body1" sx={{ mt: 2 }}>{playlist.description}</Typography>
+          <Button variant="contained" color="primary" sx={{ mt: 4 }}>Play All</Button>
+        </Grid>
+        <Grid item xs={12} md={4}>
           {playlist.videos.map((video) => (
             <Card key={video.id} sx={{ mb: 4 }}>
-              <CardMedia component="img" src={video.thumbnail} alt={video.title} />
-              <CardContent>
+                <CardMedia component="img" src={video.thumbnail} alt={video.title} />
+                <CardContent>
                 <Typography variant="h5" sx={{ mb: 2 }}>{video.title}</Typography>
                 <Button
-                  variant={bookmarkedVideos.includes(video.id) ? 'contained' : 'outlined'}
-                  color={bookmarkedVideos.includes(video.id) ? 'error' : 'primary'}
-                  onClick={() => toggleBookmark(video.id)}
+                    variant={bookmarkedVideos.includes(video.id) ? 'contained' : 'outlined'}
+                    color={bookmarkedVideos.includes(video.id) ? 'error' : 'primary'}
+                    onClick={() => toggleBookmark(video.id)}
                 >
-                  {bookmarkedVideos.includes(video.id) ? 'Unbookmark' : 'Bookmark'}
+                    {bookmarkedVideos.includes(video.id) ? 'Unbookmark' : 'Bookmark'}
                 </Button>
-              </CardContent>
+                </CardContent>
             </Card>
           ))}
         </Grid>
